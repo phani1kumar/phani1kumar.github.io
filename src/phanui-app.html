@@ -251,7 +251,10 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 
         categoryData: Object,
 
-        pageData: Object,
+        pageData: {
+          type: Object,
+          observer: '_pageChanged'
+        },
 
         idData: Object
 
@@ -272,7 +275,64 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
       _equal: function(value1, value2) {
         return value1 === value2;
       },
-
+      _pageChanged: function(pageData, oldPageData) {
+        var page = pageData.page;
+        var oldPage = oldPageData ? oldPageData.page: undefined;
+        if (page != null) {
+          // home route is eagerly loaded
+          if (page == 'list') {
+            this._pageLoaded(Boolean(oldPage));
+          // other routes are lazy loaded
+          } else {
+            // When a load failed, it triggered a 404 which means we need to
+            // eagerly load the 404 page definition
+            var cb = this._pageLoaded.bind(this, Boolean(oldPage));
+            this.importHref(
+              this.resolveUrl('shop-' + page + '.html'),
+              cb, cb, true);
+          }
+        }
+      },
+      _pageLoaded: function(shouldResetLayout) {
+        this._ensureLazyLoaded();
+        if (shouldResetLayout) {
+          // The size of the header depends on the page (e.g. on some pages the tabs
+          // do not appear), so reset the header's layout only when switching pages.
+          this.async(function() {
+            this.$.header.resetLayout();
+          }, 1);
+        }
+      },
+      _ensureLazyLoaded: function() {
+        // load lazy resources after render and set `loadComplete` when done.
+        if (!this.loadComplete) {
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            this.importHref(this.resolveUrl('lazy-resources.html'), function() {
+              // Register service worker if supported.
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js');
+              }
+              this._notifyNetworkStatus();
+              this.loadComplete = true;
+            });
+          });
+        }
+      },
+      _notifyNetworkStatus: function() {
+        var oldOffline = this.offline;
+        this.offline =  !navigator.onLine;
+        // Show the snackbar if the user is offline when starting a new session
+        // or if the network status changed.
+        if (this.offline || (!this.offline && oldOffline === true)) {
+          if (!this._networkSnackbar) {
+            this._networkSnackbar = document.createElement('phanui-snackbar');
+            Polymer.dom(this.root).appendChild(this._networkSnackbar);
+          }
+          Polymer.dom(this._networkSnackbar).innerHTML = this.offline ?
+              'You are offline' : 'You are online';
+          this._networkSnackbar.open();
+        }
+      },
       _updateArticle: function(articles, category, id) {
         if (!articles) {
           return;
