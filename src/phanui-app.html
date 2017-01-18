@@ -252,8 +252,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         categoryData: Object,
 
         pageData: {
-          type: Object,
-          observer: '_ensureLazyLoaded'
+          type: Object
         },
 
         idData: Object
@@ -270,6 +269,9 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
             this.set('route.path', '/phanui/list');
           }
         });
+        this.async(function(){
+          _ensureLazyLoaded();
+        })
       },
 
       _equal: function(value1, value2) {
