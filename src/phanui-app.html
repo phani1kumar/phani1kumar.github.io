@@ -287,9 +287,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
             // When a load failed, it triggered a 404 which means we need to
             // eagerly load the 404 page definition
             var cb = this._pageLoaded.bind(this, Boolean(oldPage));
-            this.importHref(
-              this.resolveUrl('shop-' + page + '.html'),
-              cb, cb, true);
+            //this.importHref(this.resolveUrl('shop-' + page + '.html'),cb, cb, true);
           }
         }
       },
@@ -299,7 +297,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
           // The size of the header depends on the page (e.g. on some pages the tabs
           // do not appear), so reset the header's layout only when switching pages.
           this.async(function() {
-            this.$.header.resetLayout();
+           // this.$.header.resetLayout();
           }, 1);
         }
       },
