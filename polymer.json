@@ -1,0 +1,20 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/phanui-app.html",
+  "fragments": [
+    "src/article-detail.html",
+    "src/article-headline.html",
+    "src/phanui-snackbar.html",
+    "src/lazy-resources.html"
+  ],
+  "sourceGlobs": [
+   "src/**/*",
+   "data/**/*",
+   "images/**/*",
+   "bower.json"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
+}
