@@ -191,7 +191,7 @@
                 <a name="[[item.name]]" href="#/[[item.name]]/list">{{item.title}}</a>
               </template>
               <template is="dom-if" if="[[item.hasSubmenu]]">
-                <a name="[[item.name]]" on-click="togglePolicyMenu">{{item.title}}</a>
+                <menu name="[[item.name]]" on-click="togglePolicyMenu">{{item.title}}</menu>
 
                 <paper-listbox id="policyMenu" attr-for-selected="code" hidden$="[[hidePolicyMenu]]">
                   <template is="dom-repeat" items="[[item.items]]" as="submenu">
@@ -216,11 +216,18 @@
             <paper-icon-button drawer-toggle="" icon="app:menu" hidden$="[[_shouldHideMenuButton(pageData.page, narrow)]]"></paper-icon-button>
 
             
-            <a href="#/[[categoryData.category]]/list" hidden$="[[_equal(pageData.page, 'list')]]">
-              <paper-icon-button icon="app:arrow-back"></paper-icon-button>
-            </a>
+            <template is="dom-if" if="[[!inPolicyDetailPage(categoryData.category, pageData.page)]]">
+              <a href="#/[[categoryData.category]]/list" hidden$="[[_equal(pageData.page, 'list')]]">
+                <paper-icon-button icon="app:arrow-back"></paper-icon-button>
+              </a>
+            </template>
+            <template is="dom-if" if="[[inPolicyDetailPage(categoryData.category, pageData.page)]]">
+              <a href="#/phanui/list" hidden$="[[_equal(pageData.page, 'list')]]">
+                <paper-icon-button icon="app:arrow-back"></paper-icon-button>
+              </a>
+            </template>
             <img src="https://lh3.googleusercontent.com/_P0eXWcCxDhIgYx2jPnvVVAFDS5hEMt6U5ALPbEwwwTPqCEpjHryGZG1HNM6RgTcaB8m9mZ-vCEhR8NwXgNi1UHIKA=s180" alt="PhAnui Software Solutions Pvt. Ltd.">
-            <div main-title="" hidden$="[[!_shouldHideMenuButton(pageData.page, narrow)]]">PhAnui Software Solutions Pvt Ltd</div>
+            <div main-title="" hidden$="[[narrow]]">PhAnui Software Solutions Pvt Ltd</div>
           </app-toolbar>
         </app-header>
 
@@ -266,6 +273,6 @@
 
   </template>
 
-  <script>Polymer({is:"phanui-app",properties:{articles:Object,footerLinks:Object,route:Object,subRoute:Object,subsubRoute:Object,categoryData:Object,pageData:{type:Object},idData:Object,hidePolicyMenu:{type:Boolean,value:!0}},observers:["_updateArticle(articles, categoryData.category, idData.id)"],attached:function(){this.async(function(){this.route.path||this.set("route.path","/phanui/list")}),this._ensureLazyLoaded()},_equal:function(e,t){return e===t},_pageChanged:function(e,t){var i=e.page,o=t?t.page:void 0;if(null!=i)if("list"==i)this._pageLoaded(Boolean(o));else{this._pageLoaded.bind(this,Boolean(o))}},_pageLoaded:function(e){this._ensureLazyLoaded(),e&&this.async(function(){},1)},_ensureLazyLoaded:function(){this.loadComplete||Polymer.RenderStatus.afterNextRender(this,function(){this.importHref(this.resolveUrl("lazy-resources.html"),function(){"serviceWorker"in navigator&&navigator.serviceWorker.register("/service-worker.js"),this._notifyNetworkStatus(),this.loadComplete=!0})})},_notifyNetworkStatus:function(){var e=this.offline;this.offline=!navigator.onLine,(this.offline||!this.offline&&e===!0)&&(this._networkSnackbar||(this._networkSnackbar=document.createElement("phanui-snackbar"),Polymer.dom(this.root).appendChild(this._networkSnackbar)),Polymer.dom(this._networkSnackbar).innerHTML=this.offline?"You are offline":"You are online",this._networkSnackbar.open())},_updateArticle:function(e,t,i){if(e)for(var o,n=0;o=e[n];n++)if(o.name===t)for(var a,r=0;a=o.items[r];r++)if(a.id===i)return void(this.article=a)},isSocial:function(e){return e.isSocial},isPolicy:function(e){return e.isPolicy},togglePolicyMenu:function(){this.hidePolicyMenu=!this.hidePolicyMenu},_drawerSelected:function(){this.$.drawer.persistent||this.$.drawer.close()},_shouldHideMenuButton:function(e,t){return"detail"===e||!t}});</script>
+  <script>Polymer({is:"phanui-app",properties:{articles:Object,footerLinks:Object,route:Object,subRoute:Object,subsubRoute:Object,categoryData:Object,pageData:{type:Object},idData:Object,hidePolicyMenu:{type:Boolean,value:!0}},observers:["_updateArticle(articles, categoryData.category, idData.id)"],attached:function(){this.async(function(){this.route.path||this.set("route.path","/phanui/list")}),this._ensureLazyLoaded()},_equal:function(e,t){return e===t},_pageChanged:function(e,t){var i=e.page,o=t?t.page:void 0;if(null!=i)if("list"==i)this._pageLoaded(Boolean(o));else{this._pageLoaded.bind(this,Boolean(o))}},_pageLoaded:function(e){this._ensureLazyLoaded(),e&&this.async(function(){},1)},_ensureLazyLoaded:function(){this.loadComplete||Polymer.RenderStatus.afterNextRender(this,function(){this.importHref(this.resolveUrl("lazy-resources.html"),function(){"serviceWorker"in navigator&&navigator.serviceWorker.register("/service-worker.js"),this._notifyNetworkStatus(),this.loadComplete=!0})})},_notifyNetworkStatus:function(){var e=this.offline;this.offline=!navigator.onLine,(this.offline||!this.offline&&e===!0)&&(this._networkSnackbar||(this._networkSnackbar=document.createElement("phanui-snackbar"),Polymer.dom(this.root).appendChild(this._networkSnackbar)),Polymer.dom(this._networkSnackbar).innerHTML=this.offline?"You are offline":"You are online",this._networkSnackbar.open())},_updateArticle:function(e,t,i){if(e)for(var o,n=0;o=e[n];n++)if(o.name===t)for(var a,r=0;a=o.items[r];r++)if(a.id===i)return void(this.article=a)},isSocial:function(e){return e.isSocial},isPolicy:function(e){return e.isPolicy},togglePolicyMenu:function(e){return this.hidePolicyMenu=!this.hidePolicyMenu,e.stopPropagation(),!1},_drawerSelected:function(){this.$.drawer.persistent||this.$.drawer.close()},_shouldHideMenuButton:function(e,t){return"detail"===e||!t},inPolicyDetailPage:function(e,t){return"detail"===t&&"policies"===e}});</script>
 
 </dom-module></body></html>
