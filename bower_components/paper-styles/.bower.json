@@ -29,11 +29,11 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#v1",
     "web-component-tester": "^4.0.0"
   },
-  "_release": "5d8770b394",
+  "_release": "bfff6e81c6",
   "_resolution": {
     "type": "branch",
     "branch": "2.0-preview",
-    "commit": "5d8770b3943d218441a0499f5f47496d23b63320"
+    "commit": "bfff6e81c68f9d1a9d487da98ab9886d2cda777f"
   },
   "_source": "https://github.com/PolymerElements/paper-styles.git",
   "_target": "2.0-preview",

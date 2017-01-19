@@ -33,11 +33,11 @@
     "test-fixture": "custom-elements-v1"
   },
   "homepage": "https://github.com/polymer/polymer",
-  "_release": "d18764c2e9",
+  "_release": "3eb62e8fe9",
   "_resolution": {
     "type": "branch",
     "branch": "2.0-preview",
-    "commit": "d18764c2e9ff03f102f32d5213c04f873d0b9250"
+    "commit": "3eb62e8fe9256f8f0093a7d53c1f8c4dc14888ea"
   },
   "_source": "https://github.com/polymer/polymer.git",
   "_target": "2.0-preview",

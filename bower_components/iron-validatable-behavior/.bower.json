@@ -25,18 +25,18 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0-preview",
     "iron-validator-behavior": "PolymerElements/iron-validator-behavior#2.0-preview",
     "paper-styles": "PolymerElements/paper-styles#2.0-preview",
-    "test-fixture": "PolymerElements/test-fixture#^2.0.0",
+    "test-fixture": "PolymerElements/test-fixture#custom-elements-v1",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
   },
   "resolutions": {
-    "test-fixture": "^2.0.0"
+    "test-fixture": "custom-elements-v1"
   },
-  "_release": "2e52f004dc",
+  "_release": "39826f7781",
   "_resolution": {
     "type": "branch",
     "branch": "2.0-preview",
-    "commit": "2e52f004dc17d7e60136f3f99a9955b2dd83479b"
+    "commit": "39826f7781c05870599f63c9913539455e7db9d2"
   },
   "_source": "https://github.com/PolymerElements/iron-validatable-behavior.git",
   "_target": "2.0-preview",

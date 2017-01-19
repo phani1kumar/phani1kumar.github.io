@@ -1,0 +1,48 @@
+[
+    {
+    "name":"policies",
+    "title":"Policies",
+    "isPolicy": true,
+    "items":[
+      {
+        "id": "terms-of-use",
+        "title":"Terms of use",
+        "link":"src/policies/terms-of-use.html"
+      },
+      {
+        "id": "privacy-policy",
+        "title":"Privacy policy",
+        "link":"src/policies/privacy-policy.html"
+      },
+      {
+        "id": "copyright-policy",
+        "title":"Copyright policy",
+        "link":"src/policies/copyright-policy.html"
+      },
+      {
+        "id": "cookies-policy",
+        "title":"Cookies policy",
+        "link":"src/policies/cookies-policy.html"
+      }
+    ]
+  },
+  {
+    "name":"social",
+    "title":"Contact Us",
+    "isSocial": true,
+    "items":[
+      {
+        "id": "facebook",
+        "title":"Facebook",
+        "altText":"Follow us on Facebook",
+        "link":"https://www.facebook.com/phanui.in"
+      },
+      {
+        "id": "contact-us",
+        "title": "Mail",
+        "altText":"Mail us",
+        "link":"mailto:phanui@gmail.com?Subject=Hello PhAnui"
+      }
+    ]
+  }
+]

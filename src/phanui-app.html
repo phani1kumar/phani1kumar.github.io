@@ -13,6 +13,8 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
 
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
@@ -38,6 +40,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
       :host {
         --app-primary-color: #404040;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        --paper-listbox-background-color: #BBB;
       }
       
       app-drawer {
@@ -63,14 +66,20 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         font-size: inherit;
       }
       
-      .nav-menu > a {
+      .nav-menu > a,
+      menu {
         display: block;
         padding: 12px 16px;
         font-size: 20px;
         font-weight: 500;
       }
       
-      .nav-menu > a.iron-selected {
+      .nav-menu > menu {
+        margin: 0px;
+      }
+      
+      .nav-menu > a.iron-selected,
+      menu.iron-selected {
         background-color: #888;
       }
       
@@ -135,6 +144,26 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
           margin: 0;
         }
       }
+      
+      footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        margin-top: 20px;
+        line-height: 24px;
+      }
+      
+      footer a {
+        color: var(--app-secondary-color);
+        margin: 20px;
+        text-decoration: none;
+      }
+      
+      footer a:hover {
+        text-decoration: underline;
+      }
     </style>
 
     <!-- setup routes -->
@@ -164,7 +193,18 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
           <!-- nav menu -->
           <iron-selector class="nav-menu" selected="[[categoryData.category]]" attr-for-selected="name" on-iron-activate="_drawerSelected">
             <template is="dom-repeat" items="[[articles]]">
-              <a name="[[item.name]]" href="#/[[item.name]]/list">{{item.title}}</a>
+              <template is="dom-if" if="[[!item.hasSubmenu]]">
+                <a name="[[item.name]]" href="#/[[item.name]]/list">{{item.title}}</a>
+              </template>
+              <template is="dom-if" if="[[item.hasSubmenu]]">
+                <a name="[[item.name]]" on-click="togglePolicyMenu">{{item.title}}</a>
+
+                <paper-listbox id="policyMenu" attr-for-selected="code" hidden$="[[hidePolicyMenu]]">
+                  <template is="dom-repeat" items="[[item.items]]" as="submenu">
+                    <paper-item code$="[[submenu.id]]"><a href$="#/[[item.name]]/detail/[[submenu.id]]">[[submenu.title]]</a></paper-item>
+                  </template>
+                </paper-listbox>
+              </template>
             </template>
           </iron-selector>
 
@@ -214,10 +254,21 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 
           <!-- detail page -->
           <article-detail name="detail" article="[[article]]"></article-detail>
+
         </iron-pages>
-
+        <div style="height:100px">
+        </div>
       </app-header-layout>
-
+      <footer>
+        <p><a href="/copyright/">© 2015-2016 |<strong> PhAnui Software Solutions Pvt Ltd</strong> | All rights reserved</a></p>
+        <p>
+          <template is="dom-repeat" items="[[footerLinks]]" as="contact" filter="isSocial">
+            <template is="dom-repeat" items="[[contact.items]]" as="item">
+              <a href$="[[item.link]]" target="_blank" alt$="[[item.altText]]">[[item.title]]</a>
+            </template>
+          </template>
+        </p>
+      </footer>
     </app-drawer-layout>
 
   </template>
@@ -234,21 +285,19 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
          * Articles data.
          */
         articles: Object,
-
+        footerLinks: Object,
         route: Object,
-
         subRoute: Object,
-
         subsubRoute: Object,
-
         categoryData: Object,
-
         pageData: {
           type: Object
         },
-
-        idData: Object
-
+        idData: Object,
+        hidePolicyMenu: {
+          type: Boolean,
+          value: true
+        }
       },
 
       observers: [
@@ -338,7 +387,15 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
           }
         }
       },
-
+      isSocial: function(item){
+        return item.isSocial; 
+      },
+      isPolicy: function(item){
+        return item.isPolicy;
+      },
+      togglePolicyMenu: function(){
+        this.hidePolicyMenu = !this.hidePolicyMenu; 
+      },
       _drawerSelected: function() {
         if (!this.$.drawer.persistent) this.$.drawer.close();
       },
@@ -348,7 +405,6 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
       }
 
     });
-
   </script>
 
 </dom-module>

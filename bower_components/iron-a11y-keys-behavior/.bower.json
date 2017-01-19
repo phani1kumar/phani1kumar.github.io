@@ -47,14 +47,14 @@
     "test-fixture": "^2.0.0"
   },
   "ignore": [],
-  "homepage": "https://github.com/PolymerElements/iron-a11y-keys-behavior",
+  "homepage": "https://github.com/polymerelements/iron-a11y-keys-behavior",
   "_release": "4cebe020d4",
   "_resolution": {
     "type": "branch",
     "branch": "2.0-preview",
     "commit": "4cebe020d4ca465055f57d1132645ac57d5ea045"
   },
-  "_source": "https://github.com/PolymerElements/iron-a11y-keys-behavior.git",
+  "_source": "https://github.com/polymerelements/iron-a11y-keys-behavior.git",
   "_target": "2.0-preview",
-  "_originalSource": "PolymerElements/iron-a11y-keys-behavior"
+  "_originalSource": "polymerelements/iron-a11y-keys-behavior"
 }

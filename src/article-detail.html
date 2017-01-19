@@ -6,7 +6,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
-
+<link rel="import" href="../bower_components/s-html/s-html.html">
 <link rel="import" href="app-icons.html">
 
 <dom-module id="article-detail">
@@ -14,18 +14,15 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
   <template>
 
     <style>
-
       :host {
         display: block;
       }
-
+      
       .image {
         height: 240px;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: contain;
+        width: 100%;
       }
-
+      
       .header {
         position: relative;
         padding: 24px 0;
@@ -34,20 +31,21 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         letter-spacing: 1px;
         color: #999;
       }
-
+      
       .title {
         padding: 16px 0;
         font-size: 30px;
         font-weight: 600;
       }
-
+      
       paper-fab {
         position: absolute;
-        top: -28px;;
+        top: -28px;
+        ;
         right: 40px;
         background-color: var(--app-primary-color);
       }
-
+      
       .main {
         padding: 24px 80px;
         border-top: 1px solid #ddd;
@@ -55,20 +53,18 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         line-height: 32px;
         letter-spacing: 1px;
       }
-
+      
       h3 {
         font-size: 24px;
         font-weight: 400;
         line-height: 32px;
       }
-
       /* narrow layout */
+      
       @media (max-width: 808px) {
-
         .main {
           padding: 24px;
         }
-
         /* position fab to the bottom right corner of the screen */
         paper-fab {
           position: fixed;
@@ -76,26 +72,35 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
           right: 24px;
           bottom: 24px;
         }
-
       }
-
+      .policy {
+        padding: 16px !important;
+      }
     </style>
+    <template is="dom-if" if="[[article.isHtmlContent]]">
+      <div class="policy">
+        <s-html html="{{articleContent}}" unescape="{{setUrl(article.link)}}"></s-html>
+      </div>
+    </template>
+    <template is="dom-if" if="[[!article.isHtmlContent]]">
+      <iron-image class="image" src="[[article.image]]" placeholder="[[base64Img]]" sizing="contain" preload style$="background-color: [[article.primaryColor]];"></iron-image>
 
-    <iron-image src="[[article.image]]" placeholder="[[base64Img]]" sizing="contain" preload style$="background-color: [[article.primaryColor]];height:500px;width:100%;"></iron-image>
+      <div class="header">
+        <div>[[article.author]]</div>
+        <div class="title" style$="color: [[article.secondaryColor]];">[[article.title]]</div>
+        <div>[[article.date]]</div>
+        <paper-fab icon="app:googleplus-reshare"></paper-fab>
+      </div>
 
-    <div class="header">
-      <div>[[article.author]]</div>
-      <div class="title" style$="color: [[article.secondaryColor]];">[[article.title]]</div>
-      <div>[[article.date]]</div>
-      <paper-fab icon="app:googleplus-reshare"></paper-fab>
-    </div>
-
-    <section class="main">
-      <h3>{{article.desc}}</h3>
-      <p>{{article.content}}</p>
-      <a href="[[article.link]]" target="_blank">read more...</a>
-    </section>
-
+      <section class="main">
+        <h3>{{article.desc}}</h3>
+        <p>{{article.content}}</p>
+        <template is="dom-if" if="[[article.link]]">
+        <a href="[[article.link]]" target="_blank">read more...</a>
+        </a>
+        </template>
+      </section>
+    </template>
   </template>
 
   <script>
@@ -106,10 +111,55 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 
       properties: {
 
-        article: Object
+        article: Object,
+        articleContent: {
+            type: String,
+            notify: true,
+            value: ""
+        },
+        articleUrl: String,       
+        failure: {
+            type: Boolean,
+            notify: true,
+            readOnly: true
+          } 
+        },
+        observers: [
+          '_fetchHtmlData(articleUrl)'
+        ],
+        setUrl:function(dataUrl){
+          this.set('articleUrl',dataUrl);
+          this.notifyPath('articleUrl');
+          return false;
+        },
 
-      }
+        _fetchHtmlData:function(dataUrl) {
+          this._setFailure(false);
+          this._getResource({
+            url: dataUrl,
+            onLoad: function(e) {
+              this.set('articleContent', e.target.responseText);
+            },
+            onError: function(e) {
+              this._setFailure(true);
+            }
+          }, 1);
+        },
+        _getResource:function(rq, attempts) {
+          var xhr = new XMLHttpRequest();
+          xhr.addEventListener('load', rq.onLoad.bind(this));
+          xhr.addEventListener('error', function(e) {
+            // Flaky connections might fail fetching resources
+            if (attempts > 1) {
+              this.debounce('_getResource', this._getResource.bind(this, rq, attempts - 1), 200);
+            } else {
+              rq.onError.call(this, e);
+            }
+          }.bind(this));
 
+          xhr.open('GET', rq.url);
+          xhr.send();
+        }
     });
 
   </script>
