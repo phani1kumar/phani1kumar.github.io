@@ -323,6 +323,10 @@
       }
     }
 
+    /**
+     * @param {function()} fn
+     * @param {number=} delay
+     */
     _debounceRender(fn, delay) {
       this._renderDebouncer =
         Polymer.Debouncer.debounce(this._renderDebouncer, fn, delay, this);
@@ -467,7 +471,7 @@
       var dot = itemsPath.indexOf('.');
       var itemsIdx = dot < 0 ? itemsPath : itemsPath.substring(0, dot);
       // If path was index into array...
-      if (itemsIdx == parseInt(itemsIdx)) {
+      if (itemsIdx == parseInt(itemsIdx, 10)) {
         var itemPath = dot < 0 ? '' : itemsPath.substring(dot+1);
         // See if the item subpath should trigger a full refresh...
         if (!this._handleObservedPaths(itemPath)) {
@@ -493,7 +497,7 @@
      *
      * @method itemForElement
      * @param {HTMLElement} el Element for which to return the item.
-     * @return {any} Item associated with the element.
+     * @return {*} Item associated with the element.
      */
     itemForElement(el) {
       var instance = this.modelForElement(el);
@@ -507,7 +511,7 @@
      *
      * @method indexForElement
      * @param {HTMLElement} el Element for which to return the index.
-     * @return {any} Row index associated with the element (note this may
+     * @return {*} Row index associated with the element (note this may
      *   not correspond to the array index if a user `sort` is applied).
      */
     indexForElement(el) {
@@ -530,7 +534,8 @@
      *
      * @method modelForElement
      * @param {HTMLElement} el Element for which to return a template model.
-     * @return {Object<Polymer.Base>} Model representing the binding scope for
+     * TODO(kschaaf): replace return type with interface for TemplateInstanceBaseInterface
+     * @return {Object} Model representing the binding scope for
      *   the element.
      */
     modelForElement(el) {

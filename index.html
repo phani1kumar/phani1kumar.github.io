@@ -30,7 +30,9 @@
     <template is="dom-bind">
 
       <iron-ajax url="data/articles.json" auto="" last-response="{{articles}}"></iron-ajax>
-      <phanui-app articles="[[articles]]">
+      <iron-ajax url="data/footer-links.json" auto="" last-response="{{footerLinks}}"></iron-ajax>
+
+      <phanui-app articles="[[articles]]" footer-links="[[footerLinks]]">
 
     </phanui-app></template>
   </dom-bind>

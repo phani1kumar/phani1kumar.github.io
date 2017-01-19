@@ -36,6 +36,10 @@
       return klass;
     }
 
+    /**
+     * @param {Array} behaviors
+     * @param {Array=} list
+     */
     var flattenBehaviors = function(behaviors, list) {
       list = list || [];
       if (behaviors) {
@@ -71,10 +75,14 @@
           return config;
         }
 
-        static get template() {
-          return behavior._template || super.template || this.prototype._template;
+        static _getTemplate() {
+          return behavior._template || super._getTemplate() || this.prototype._template;
         }
 
+        /**
+         * @param {Function} fn
+         * @param {Array=} args
+         */
         _invokeFunction(fn, args) {
           if (fn) {
             fn.apply(this, args);
@@ -83,7 +91,7 @@
 
         _initializeProperties() {
           // call `registered` only if it was not called for *this* constructor
-          if (!PolymerGenerated.hasOwnProperty('__registered')) {
+          if (!PolymerGenerated.hasOwnProperty(goog.reflect.objectProperty('__registered', PolymerGenerated))) {
             PolymerGenerated.__registered = true;
             if (behavior.registered) {
               behavior.registered.call(Object.getPrototypeOf(this));

@@ -12,6 +12,11 @@
       }
       return Polymer.DomModule.import(moduleId);
     },
+    /**
+     * @param {string} moduleIds
+     * @param {boolean=} warnIfNotFound
+     * @return {string}
+     */
     cssFromModules(moduleIds, warnIfNotFound) {
       var modules = moduleIds.trim().split(' ');
       var cssText = '';

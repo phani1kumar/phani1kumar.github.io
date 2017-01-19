@@ -8,7 +8,9 @@
 
   (function() {
 
-    class DomBind extends Polymer.PropertyEffects(HTMLElement) {
+    const mixin = Polymer.PropertyEffects(HTMLElement);
+
+    class DomBind extends mixin {
 
       connectedCallback() {
         this.render();

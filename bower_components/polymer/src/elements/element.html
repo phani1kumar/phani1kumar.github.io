@@ -29,7 +29,12 @@
 
   Polymer.ElementMixin = Polymer.Utils.cachingMixin(function(base) {
 
-    return class PolymerElement extends Polymer.PropertyEffects(base) {
+    const mixin = Polymer.PropertyEffects(base);
+
+    /**
+     * @unrestricted
+     */
+    class PolymerElement extends mixin {
 
       // returns the config object on specifically on `this` class (not super)
       // config is used for:
@@ -37,8 +42,8 @@
       // then used to make observedAttributes and set property defaults
       // (2) properties effects and observers are created from it at `finalize` time.
       static get _ownConfig() {
-        if (!this.hasOwnProperty('__ownConfig')) {
-          this.__ownConfig = this.hasOwnProperty('config') ? this.config : {};
+        if (!this.hasOwnProperty(goog.reflect.objectProperty('__ownConfig', this))) {
+          this.__ownConfig = this.hasOwnProperty(goog.reflect.objectProperty('config', this)) ? this.config : {};
         }
         return this.__ownConfig;
       }
@@ -49,7 +54,7 @@
       // (1) observedAttributes,
       // (2) element default values
       static get _flattenedProperties() {
-        if (!this.hasOwnProperty('__flattenedProperties')) {
+        if (!this.hasOwnProperty(goog.reflect.objectProperty('__flattenedProperties', this))) {
           // TODO(sorvell): consider optimizing; shorthand type support requires
           // an extra loop to upgrade shorthand property info to longhand
           this.__flattenedProperties = flattenProperties({}, this._ownConfig.properties);
@@ -64,7 +69,7 @@
       }
 
       static get observedAttributes() {
-        if (!this.hasOwnProperty('_observedAttributes')) {
+        if (!this.hasOwnProperty(goog.reflect.objectProperty('_observedAttributes', this))) {
           // observedAttributes must be finalized at registration time
           this._observedAttributes = this._addPropertiesToAttributes(
             this._flattenedProperties, []);
@@ -80,7 +85,7 @@
       }
 
       static get finalized() {
-        return this.hasOwnProperty('_finalized');
+        return this.hasOwnProperty(goog.reflect.objectProperty('_finalized', this));
       }
 
       static set finalized(value) {
@@ -103,7 +108,7 @@
             superCtor.finalize();
           }
           this.finalized = true;
-          if (this.hasOwnProperty('is') && this.is) {
+          if (this.hasOwnProperty(goog.reflect.objectProperty('is', this)) && this.is) {
             Polymer.telemetry.register(proto);
           }
           let config = this._ownConfig;
@@ -111,8 +116,7 @@
             this._finalizeConfig(config);
           }
           if (this.template) {
-            let template = this.template.cloneNode(true);
-            this._finalizeTemplate(template);
+            this._finalizeTemplate(this.template.cloneNode(true));
           }
         }
       }
@@ -131,11 +135,13 @@
         }
       }
 
+      static _getTemplate() {
+        return Polymer.DomModule.import(this.is, 'template');
+      }
+
       static get template() {
-        if (!this.hasOwnProperty('_template')) {
-          // TODO(sorvell): support more ways to acquire template.
-          // this requires `is` on constructor...
-          this._template = Polymer.DomModule.import(this.is, 'template') ||
+        if (!this.hasOwnProperty(goog.reflect.objectProperty('_template', this))) {
+          this._template = this._getTemplate() ||
             // note: implemented so a subclass can retrieve the super
             // template; call the super impl this way so that `this` points
             // to the superclass.
@@ -311,8 +317,10 @@
        * to put its dom in another location.
        *
        * @method _attachDom
+       * @throws {Error}
+       * @suppress {missingReturn}
        * @param {NodeList} dom to attach to the element.
-       * @returns {Node} node to which the dom has been attached.
+       * @return {Node} node to which the dom has been attached.
        */
       _attachDom(dom) {
         if (this.attachShadow) {
@@ -329,6 +337,7 @@
            `Polymer.Element can
               create dom as children instead of in ShadowDOM by setting
               \`this.root = this;\` before \`ready\`.`);
+
         }
       }
 
@@ -342,6 +351,14 @@
         }
       }
 
+      /**
+       * Update styling for this element
+       *
+       * @param {Object=} properties
+       *  Override styling with an object of properties where the keys are css properties, and the values are strings
+       *  Example: `this.updateStyles({'color': 'blue'})`
+       *  These properties are retained unless a value of `null` is set.
+       */
       updateStyles(properties) {
         if (window.ShadyCSS) {
           ShadyCSS.applyStyle(this, properties);
@@ -370,6 +387,7 @@
 
     }
 
+    return PolymerElement;
   });
 
   let hostStack = {

@@ -27,6 +27,11 @@
   class EffectiveNodesObserver {
 
     constructor(target, callback) {
+      /** @type {MutationObserver} */
+      this.shadyChildrenObserver = null;
+      /** @type {MutationObserver} */
+      this.nativeChildrenObserver = null;
+      this.connected = false;
       this.target = target;
       this.callback = callback;
       this.effectiveNodes = [];
