@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head>
+
+  <title>iron-selector-numeric-ids</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
+
+  <link rel="import" href="../iron-selector.html">
+
+  <style>
+    .iron-selected {
+      background: #ccc;
+    }
+  </style>
+
+</head>
+<body>
+
+  <test-fixture id="scope-polymer2">
+    <template>
+      <div>
+        <dom-bind>
+          <template>
+            <iron-selector attr-for-selected="name">
+              <dom-repeat>
+                <template>
+                  <div name="[[item.id]]">{{item.name}}</div>
+                </template>
+              </dom-repeat>
+            </iron-selector>
+          </template>
+        </dom-bind>
+      </div>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="scope-polymer1">
+    <template>
+      <div>
+        <template is="dom-bind">
+          <iron-selector attr-for-selected="name">
+            <template is="dom-repeat">
+              <div name="[[item.id]]">{{item.name}}</div>
+            </template>
+          </iron-selector>
+        </template>
+      </div>
+    </template>
+  </test-fixture>
+
+  <script>suite("select by a numeric property",function(){var e,t,r;setup(function(){Polymer.Element?(e=fixture("scope-polymer2"),t=e.querySelector("iron-selector"),r=e.querySelector("dom-repeat")):(e=fixture("scope-polymer1"),t=e.querySelector("iron-selector"),r=e.querySelector("template[is=dom-repeat]")),r.items=[{id:0,name:"item0"},{id:1,name:"item1"},{id:2,name:"item2"}],r.render(),t.forceSynchronousItemUpdate()}),test("select a value of zero",function(){t.selected=1,assert.equal(t.selected,"1"),MockInteractions.tap(t.children[0]),assert.equal(t.selected,0)})});</script>
+
+
+
+</body></html>

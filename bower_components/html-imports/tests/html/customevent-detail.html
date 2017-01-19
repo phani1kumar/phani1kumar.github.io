@@ -1,0 +1,10 @@
+<!DOCTYPE html><html><head>
+    <title>CustomEvent detail test</title>
+    <script src="../../src/html-imports.js"></script>
+    <script src="../../../web-component-tester/browser.js"></script>
+  </head>
+  <body>
+    <script>test("CustomEvent detail",function(e){var t="some-event",n="some-detail";document.body.addEventListener(t,function(t){chai.assert.equal(t.detail,n,"expected CustomEvent detail"),e()});var d=new CustomEvent(t,{detail:n});document.body.dispatchEvent(d)});</script>
+  
+
+</body></html>
