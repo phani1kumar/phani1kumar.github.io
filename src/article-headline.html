@@ -1,5 +1,6 @@
 <html><head><link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
 
 </head><body><dom-module id="article-headline">
 
@@ -38,7 +39,7 @@
     </style>
 
     <a href="[[href]]">
-      <div class="image" style$="background-color: [[article.primaryColor]]; background-image: url('[[article.image]]');"></div>
+      <iron-image src="[[article.image]]" placeholder="[[base64Img]]" sizing="contain" preload="" style$="background-color: [[article.primaryColor]];height:500px;"></iron-image>
       <div class="title" style$="background-color: [[article.secondaryColor]];">[[article.title]]</div>
     </a>
 

@@ -76,7 +76,6 @@
       }
       
       .title-toolbar {
-        @apply --layout-center-center;
         box-sizing: border-box;
       }
       
@@ -151,9 +150,6 @@
           <app-header fixed="" slot="header">
 
             
-            <app-toolbar></app-toolbar>
-
-            
             <app-toolbar class="title-toolbar nav-title-toolbar">
               <iron-img src="https://lh3.googleusercontent.com/_P0eXWcCxDhIgYx2jPnvVVAFDS5hEMt6U5ALPbEwwwTPqCEpjHryGZG1HNM6RgTcaB8m9mZ-vCEhR8NwXgNi1UHIKA=s180" alt="PhAnui Software Solutions Pvt. Ltd."></iron-img>
             </app-toolbar>
@@ -175,7 +171,7 @@
         <app-header fixed="" effects="waterfall" class="main-header" slot="header">
 
           
-          <app-toolbar>
+          <app-toolbar class="title-toolbar main-title-toolbar">
             
             <paper-icon-button drawer-toggle="" icon="app:menu" hidden$="[[_shouldHideMenuButton(pageData.page, narrow)]]"></paper-icon-button>
 
@@ -183,12 +179,8 @@
             <a href="#/[[categoryData.category]]/list" hidden$="[[_equal(pageData.page, 'list')]]">
               <paper-icon-button icon="app:arrow-back"></paper-icon-button>
             </a>
-          </app-toolbar>
-
-          
-          <app-toolbar class="title-toolbar main-title-toolbar">
             <img src="https://lh3.googleusercontent.com/_P0eXWcCxDhIgYx2jPnvVVAFDS5hEMt6U5ALPbEwwwTPqCEpjHryGZG1HNM6RgTcaB8m9mZ-vCEhR8NwXgNi1UHIKA=s180" alt="PhAnui Software Solutions Pvt. Ltd.">
-            <div main-title="">PhAnui Software Solutions Pvt Ltd</div>
+            <div main-title="" hidden$="[[!_shouldHideMenuButton(pageData.page, narrow)]]">PhAnui Software Solutions Pvt Ltd</div>
           </app-toolbar>
         </app-header>
 
