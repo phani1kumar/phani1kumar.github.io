@@ -1,6 +1,0 @@
-<html><head><link rel="import" href="../utils/boot.html">
-<link rel="import" href="../utils/utils.html">
-<link rel="import" href="async.html">
-
-<script>Polymer.Debouncer=function(n){this.context=n;var i=this;this.boundFlush=function(){i.flush()}},Polymer.Utils.mixin(Polymer.Debouncer.prototype,{go:function(n,i){var t;this.finish=function(){Polymer.Async.cancel(t)},t=Polymer.Async.run(this.boundFlush,i),this.callback=n},cancel:function(){this.finish&&(this.finish(),this.finish=null)},flush:function(){this.finish&&(this.cancel(),this.callback.call(this.context))},isActive:function(){return Boolean(this.finish)}}),Polymer.Debouncer.debounce=function(n,i,t,c){return c=c||this,n?n.cancel():n=new Polymer.Debouncer(c),n.go(i,t),n};</script>
-</head><body></body></html>
