@@ -227,7 +227,7 @@
         </app-header>
 
         
-        <iron-pages selected="[[pageData.page]]" attr-for-selected="name">
+        <iron-pages selected="[[pageData.page]]" attr-for-selected="name" fallback-selection="404">
 
           
           <iron-pages name="list" selected="[[categoryData.category]]" attr-for-selected="name">
@@ -249,6 +249,7 @@
 
           
           <article-detail name="detail" article="[[article]]"></article-detail>
+          <phanui-404-warning name="404"></phanui-404-warning>
 
         </iron-pages>
         <div style="height:100px">
