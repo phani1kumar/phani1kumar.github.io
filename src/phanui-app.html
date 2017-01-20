@@ -9,15 +9,11 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
 
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="../bower_components/paper-item/paper-item.html">
 
-<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
@@ -29,7 +25,6 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 <link rel="import" href="../bower_components/app-layout/app-scroll-position/app-scroll-position.html">
 
 <link rel="import" href="article-headline.html">
-<link rel="import" href="article-detail.html">
 <link rel="import" href="two-columns-grid.html">
 
 <dom-module id="phanui-app">
@@ -239,7 +234,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         </app-header>
 
         <!-- list/detail pages -->
-        <iron-pages selected="[[pageData.page]]" attr-for-selected="name">
+        <iron-pages selected="[[pageData.page]]" attr-for-selected="name" fallback-selection="404">
 
           <!-- list page -->
           <iron-pages name="list" selected="[[categoryData.category]]" attr-for-selected="name">
@@ -261,6 +256,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 
           <!-- detail page -->
           <article-detail name="detail" article="[[article]]"></article-detail>
+          <phanui-404-warning name="404"></phanui-404-warning>
 
         </iron-pages>
         <div style="height:100px">
@@ -337,59 +333,55 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
       },
 
       observers: [
-        '_updateArticle(articles, categoryData.category, idData.id)'
+        '_updateArticle(articles, categoryData.category, idData.id)',
+        '_pageChanged(categoryData, pageData)'
       ],
-
+      created: function() {
+        window.performance && performance.mark && performance.mark('phanui-app.created');
+        // Custom elements polyfill safe way to indicate an element has been upgraded.
+        this.removeAttribute('unresolved');
+        this._fetchMenuData();
+      },
+      ready: function() {
+        // listen for online/offline
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          this.listen(window, 'online', '_notifyNetworkStatus');
+          this.listen(window, 'offline', '_notifyNetworkStatus');
+        });
+      },
       attached: function() {
         this.async(function() {
           if (!this.route.path) {
             this.set('route.path', '/phanui/list');
           }
         });
-          this._ensureLazyLoaded();
-          this._fetchMenuData();
+          //this._ensureLazyLoaded();
       },
 
       _equal: function(value1, value2) {
         return value1 === value2;
       },
-      _pageChanged: function(pageData, oldPageData) {
-        var page = pageData.page;
-        var oldPage = oldPageData ? oldPageData.page: undefined;
-        if (page != null) {
-          // home route is eagerly loaded
-          if (page == 'list') {
-            this._pageLoaded(Boolean(oldPage));
-          // other routes are lazy loaded
-          } else {
-            // When a load failed, it triggered a 404 which means we need to
-            // eagerly load the 404 page definition
-            var cb = this._pageLoaded.bind(this, Boolean(oldPage));
-            //this.importHref(this.resolveUrl('shop-' + page + '.html'),cb, cb, true);
-          }
+      _pageChanged: function(catData, pgData) {
+        console.log('_pageChanged Called'+catData+'/'+pgData);
+        if(!catData || !pgData)
+          return;
+        if (pgData.page && catData.category) {
+        console.log('_pageChanged Called'+catData.category+'/'+pgData.page);
+            this.debounce('lazy-resources',this._pageLoaded,10);
         }
       },
-      _pageLoaded: function(shouldResetLayout) {
-        this._ensureLazyLoaded();
-        if (shouldResetLayout) {
-          // The size of the header depends on the page (e.g. on some pages the tabs
-          // do not appear), so reset the header's layout only when switching pages.
-          this.async(function() {
-           // this.$.header.resetLayout();
-          }, 1);
-        }
-      },
-      _ensureLazyLoaded: function() {
+      _pageLoaded: function() {
         // load lazy resources after render and set `loadComplete` when done.
         if (!this.loadComplete) {
+          console.log('lazy resources load called');
           Polymer.RenderStatus.afterNextRender(this, function() {
             this.importHref(this.resolveUrl('lazy-resources.html'), function() {
               // Register service worker if supported.
               if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/service-worker.js');
               }
-              this._notifyNetworkStatus();
               this.loadComplete = true;
+              this._notifyNetworkStatus();
             });
           });
         }
@@ -437,7 +429,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         return false; 
       },
       _drawerSelected: function() {
-        if(this.hidePolicyMenu && narrow) return;
+        if(this.hidePolicyMenu && this.narrow) return;
         if (!this.$.drawer.persistent) this.$.drawer.close();
       },
 

@@ -20,6 +20,16 @@ module.exports = {
       }
     },
     {
+      urlPattern: /lh3\.googleusercontent\.com\/.*/,
+      handler: 'cacheFirst',
+      options: {
+        cache: {
+          maxEntries: 200,
+          name: 'images-cache'
+        }
+      }
+    },
+    {
       urlPattern: /\/data\/.*json/,
       handler: 'fastest',
       options: {
