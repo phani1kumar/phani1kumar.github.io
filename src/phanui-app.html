@@ -192,7 +192,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 
           <!-- nav menu -->
           <iron-selector class="nav-menu" selected="[[categoryData.category]]" attr-for-selected="name" on-iron-activate="_drawerSelected">
-            <template is="dom-repeat" items="[[articles]]">
+            <template is="dom-repeat" items="{{articles}}">
               <template is="dom-if" if="[[!item.hasSubmenu]]">
                 <a name="[[item.name]]" href="#/[[item.name]]/list">{{item.title}}</a>
               </template>
@@ -291,8 +291,32 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         /**
          * Articles data.
          */
-        articles: Object,
-        footerLinks: Object,
+        articles: {
+          type: Object,
+          notify: true
+        },
+        footerLinks: {
+          type: Object,
+          value: [{
+                    "name":"social",
+                    "title":"Contact Us",
+                    "isSocial": true,
+                    "items":[
+                      {
+                        "id": "facebook",
+                        "title":"Facebook",
+                        "altText":"Follow us on Facebook",
+                        "link":"https://www.facebook.com/phanui.in"
+                      },
+                      {
+                        "id": "contact-us",
+                        "title": "Mail",
+                        "altText":"Mail us",
+                        "link":"mailto:phanui@gmail.com?Subject=Hello PhAnui"
+                      }
+                    ]
+                  }]
+        },
         route: Object,
         subRoute: Object,
         subsubRoute: Object,
@@ -304,7 +328,12 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         hidePolicyMenu: {
           type: Boolean,
           value: true
-        }
+        },       
+            failure: {
+                type: Boolean,
+                notify: true,
+                readOnly: true
+            }    
       },
 
       observers: [
@@ -318,6 +347,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
           }
         });
           this._ensureLazyLoaded();
+          this._fetchMenuData();
       },
 
       _equal: function(value1, value2) {
@@ -395,7 +425,8 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         }
       },
       isSocial: function(item){
-        return item.isSocial; 
+        if(item)
+          return item.isSocial; 
       },
       isPolicy: function(item){
         return item.isPolicy;
@@ -415,8 +446,41 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         return page === 'detail' || !narrow;
       },
       inPolicyDetailPage: function(category, page){
+        //Test
         return page === 'detail' && category === 'policies';
-      }
+      },
+
+        _fetchMenuData:function() {
+          console.log('loading articles data');
+          this._setFailure(false);
+          this._getResource({
+            url: '../data/articles.json',
+            onLoad: function(e) {
+              this.set('articles', JSON.parse(e.target.responseText));
+            },
+            onError: function(e) {
+              this._setFailure(true);
+            }
+          }, 1);
+        },
+        _setFailure:function(flag){
+          this.set('failure',flag);
+        },
+        _getResource:function(rq, attempts) {
+          var xhr = new XMLHttpRequest();
+          xhr.addEventListener('load', rq.onLoad.bind(this));
+          xhr.addEventListener('error', function(e) {
+            // Flaky connections might fail fetching resources
+            if (attempts > 1) {
+              this.debounce('_getResource', this._getResource.bind(this, rq, attempts - 1), 200);
+            } else {
+              rq.onError.call(this, e);
+            }
+          }.bind(this));
+
+          xhr.open('GET', rq.url);
+          xhr.send();
+        }
 
     });
   </script>

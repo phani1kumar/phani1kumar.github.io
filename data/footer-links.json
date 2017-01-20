@@ -1,31 +1,4 @@
 [
-    {
-    "name":"policies",
-    "title":"Policies",
-    "isPolicy": true,
-    "items":[
-      {
-        "id": "terms-of-use",
-        "title":"Terms of use",
-        "link":"src/policies/terms-of-use.html"
-      },
-      {
-        "id": "privacy-policy",
-        "title":"Privacy policy",
-        "link":"src/policies/privacy-policy.html"
-      },
-      {
-        "id": "copyright-policy",
-        "title":"Copyright policy",
-        "link":"src/policies/copyright-policy.html"
-      },
-      {
-        "id": "cookies-policy",
-        "title":"Cookies policy",
-        "link":"src/policies/cookies-policy.html"
-      }
-    ]
-  },
   {
     "name":"social",
     "title":"Contact Us",
