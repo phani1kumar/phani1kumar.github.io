@@ -219,7 +219,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
           <!-- header toolbar -->
           <app-toolbar class="title-toolbar main-title-toolbar">
             <!-- menu button -->
-            <paper-icon-button drawer-toggle icon="app:menu" hidden$="[[_shouldHideMenuButton(pageData.page, narrow)]]"></paper-icon-button>
+            <paper-icon-button drawer-toggle icon="app:menu" hidden$="[[_shouldHideMenuButton(categoryData.category, pageData.page, narrow)]]"></paper-icon-button>
 
             <!-- back button -->
             <template is="dom-if" if="[[!inPolicyDetailPage(categoryData.category, pageData.page)]]">
@@ -406,11 +406,12 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         return false; 
       },
       _drawerSelected: function() {
-        if(this.hidePolicyMenu) return;
+        if(this.hidePolicyMenu && narrow) return;
         if (!this.$.drawer.persistent) this.$.drawer.close();
       },
 
-      _shouldHideMenuButton: function(page, narrow) {
+      _shouldHideMenuButton: function(category, page, narrow) {
+        if(category === 'policies' && page === 'detail' && narrow) return false;
         return page === 'detail' || !narrow;
       },
       inPolicyDetailPage: function(category, page){
