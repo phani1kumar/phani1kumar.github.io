@@ -6,11 +6,10 @@
   <title>PhAnui Software Solutions Pvt Ltd</title>
 
   <link rel="manifest" href="manifest.json">
-  <link rel="shortcut icon" href="https://lh3.googleusercontent.com/UQjHv3cmTuPqrqq6QgHMAQWDN2kHFAFq5aAWWO1e_cDfZvxlF_mrnR9H5h71YDeLfDrs2Y7IETIKvEGDCyuz_S1I">
+  <link rel="shortcut icon" sizes="32x14" href="https://lh3.googleusercontent.com/UQjHv3cmTuPqrqq6QgHMAQWDN2kHFAFq5aAWWO1e_cDfZvxlF_mrnR9H5h71YDeLfDrs2Y7IETIKvEGDCyuz_S1I=s32">
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
   <link rel="import" async="" href="bower_components/font-roboto/roboto.html">
-  <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
   <link rel="import" async="" href="src/phanui-app.html">
 
   <style>
@@ -28,15 +27,10 @@
 
   <dom-bind>
     <template is="dom-bind">
-
-      <iron-ajax url="data/articles.json" auto="" last-response="{{articles}}"></iron-ajax>
-      <iron-ajax url="data/footer-links.json" auto="" last-response="{{footerLinks}}"></iron-ajax>
-
       <phanui-app articles="[[articles]]" footer-links="[[footerLinks]]">
-
     </phanui-app></template>
   </dom-bind>
-  <script>window.performance&&performance.mark&&performance.mark("index.html");</script>
+  <script>window.performance&&performance.mark&&performance.mark("index.html"),Polymer={lazyRegister:!0,dom:"shadow"};</script>
 
 
 </body></html>
