@@ -1,0 +1,1 @@
+window.gc||(window.gc=function(){function o(r){if(r<1)return{};var i={i:"ab"+n+n/1e5};i+="foo",o(r-1)}if(window.GCController)return GCController.collectAll();for(var n=0;n<1e4;n++)o(10)});

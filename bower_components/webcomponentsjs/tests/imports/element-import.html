@@ -1,0 +1,12 @@
+<html><head></head><body><x-foo></x-foo>
+<script>
+(function() {
+  class XFoo extends HTMLElement {
+    connectedCallback() {
+      this.isCreated = true;
+    }
+  }
+  window.customElements.define('x-foo', XFoo);
+})();
+</script>
+</body></html>
