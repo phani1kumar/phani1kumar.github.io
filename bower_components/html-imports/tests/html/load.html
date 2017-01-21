@@ -1,0 +1,18 @@
+<!DOCTYPE html><html><head>
+    <title>load event Test</title>
+    <script>window.loadEvents=0,function(){function t(t){if(window.loadEvents++,"load"===t.type&&t.target.import){var o=t.target.import.querySelector("script");chai.assert.ok(o,"load event target can be used to find element in import")}}function o(t){window.loadEvents++}window.importLoaded=t,window.importError=o}();</script>
+    <script src="../../src/html-imports.js"></script>
+    <script src="../../../web-component-tester/browser.js"></script>
+    <link rel="import" href="imports/load-1.html" onload="importLoaded(event)">
+    <link rel="import" href="imports/load-2.html" onload="importLoaded(event)">
+    <link rel="import" id="willError" href="imports/404.html" onerror="importError(event)">
+    <link rel="import" id="nohref" onerror="importError(event)">
+  </head>
+  <body>
+    <div id="test1" class="red">Test</div>
+    <div id="test2" class="blue">Test</div>
+    <div id="test3" class="image"></div>
+    <script>test("load",function(){chai.assert.equal(loadEvents,4,"expected # of load events");var e=getComputedStyle(document.querySelector("#test1")).backgroundColor;chai.assert.equal(e,"rgb(255, 0, 0)");var t=getComputedStyle(document.querySelector("#test2")).backgroundColor;chai.assert.equal(t,"rgb(0, 0, 255)")});</script>
+  
+
+</body></html>

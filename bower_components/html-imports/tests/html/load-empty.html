@@ -1,0 +1,14 @@
+<!DOCTYPE html><html><head>
+    <title>load event Test for empty resources</title>
+    <script src="../../src/html-imports.js"></script>
+    <script>WCT={waitFor:function(n){HTMLImports.whenReady(n)}};</script>
+    <script src="../../../web-component-tester/browser.js"></script>
+    <script>function importLoadedWithCallback(o){return function(t){window.loadEvents++,chai.assert.equal(t.type,"load","event type should be `load`"),chai.assert.ok(t.target.import,"link should have `import` defined"),o&&o()}}window.loadEvents=0,window.importLoaded=importLoadedWithCallback();</script>
+    <link rel="import" href="imports/load-empty.html" onload="importLoaded(event)">
+
+  </head>
+  <body>
+    <script>test("load empty resource",function(){chai.assert.equal(loadEvents,1,"expected # of load events")}),test("load empty resource asynchronously",function(e){loadEvents=0,setTimeout(function(){var t=document.createElement("link");t.rel="import",t.href="imports/load-empty-async.html",t.onload=importLoadedWithCallback(e),document.head.appendChild(t)})}),test("load empty resource second time",function(e){loadEvents=0,setTimeout(function(){var t=document.createElement("link");t.rel="import",t.href="imports/load-empty.html",t.onload=importLoadedWithCallback(e),document.head.appendChild(t)})});</script>
+  
+
+</body></html>
