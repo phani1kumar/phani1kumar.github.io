@@ -1,1 +1,0 @@
-!function(e){var o=document.createElement("style");o.textContent="body {transition: opacity ease-in 0.2s; } \nbody[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } \n";var t=document.querySelector("head");t.insertBefore(o,t.firstChild)}(window.WebComponents);

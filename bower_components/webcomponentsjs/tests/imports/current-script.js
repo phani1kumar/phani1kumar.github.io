@@ -1,1 +1,0 @@
-remoteCurrentScriptExecuted=window.remoteCurrentScriptExecuted||0,remoteCurrentScriptExecuted++,assert.ok(document._currentScript);
