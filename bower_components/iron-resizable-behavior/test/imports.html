@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head>
+
+  <title>iron-resizable-behavior tests</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="x-resizable.html">
+  <link rel="import" href="x-resizer-parent.html">
+
+</head>
+
+<body>
+  <x-resizer-parent>
+    <x-resizable></x-resizable>
+  </x-resizer-parent>
+
+  <script>suite("imports order",function(){test("resizable children and parent updated",function(){var e=document.querySelector("x-resizer-parent"),r=e.firstElementChild;assert.deepEqual(e._interestedResizables,[r],"resizable children ok"),assert.equal(r._parentResizable,e,"resizable parent ok")})});</script>
+
+
+
+</body></html>
