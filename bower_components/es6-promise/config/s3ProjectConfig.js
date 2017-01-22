@@ -1,1 +1,0 @@
-module.exports=function(s,e,t){return{"es6-promise.js":{contentType:"text/javascript",destinations:{wildcard:["es6-promise-latest.js","es6-promise-"+s+".js"]}},"es6-promise.min.js":{contentType:"text/javascript",destinations:{wildcard:["es6-promise-latest.min.js","es6-promise-"+s+".min.js"]}}}};

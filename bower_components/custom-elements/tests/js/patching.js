@@ -1,1 +1,0 @@
-suite("patching",function(){suite("HTMLElement",function(){test("constructor is configurable and writable",function(){var t=Object.getOwnPropertyDescriptor(HTMLElement.prototype,"constructor");assert.isTrue(t.configurable),assert.isTrue(t.writable)})})});

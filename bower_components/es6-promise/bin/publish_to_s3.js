@@ -1,2 +1,0 @@
-#!/usr/bin/env node
-var S3Publisher=require("ember-publisher"),configPath=require("path").join(__dirname,"../config/s3ProjectConfig.js");publisher=new S3Publisher({projectConfigPath:configPath}),publisher.currentBranch=function(){return"master"===process.env.TRAVIS_BRANCH?"wildcard":"no-op"},publisher.publish();
