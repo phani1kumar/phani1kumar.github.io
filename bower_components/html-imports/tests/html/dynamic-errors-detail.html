@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head>
+    <title>HTML Imports Dynamic</title>
+    <script>var ready;WCT={waitFor:function(a){ready=a}};</script>
+    <script src="../../src/html-imports.js"></script>
+    <script src="../../../web-component-tester/browser.js"></script>
+  </head>
+  <body>
+
+    <script>document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=document.createElement("div");e.innerHTML='<link rel="import" href="imports/load-1.html"><link rel="import" href="imports/load-does-not-exist.html">',document.body.appendChild(e);for(var t,r=document.querySelectorAll("link[rel=import]"),o=0,n=0,a=r.length;n<a&&(t=r[n]);n++)t.addEventListener("load",function(e){o++,chai.assert.ok(e.target.import)});ready()})}),test("HTMLImports whenready errors",function(e){HTMLImports.whenReady(function(t){chai.assert.equal(t.allImports.length,2),chai.assert.equal(t.errorImports.length,1),chai.assert.equal(t.loadedImports.length,1);var r=t.errorImports[0];chai.expect(r.href).to.contain("imports/load-does-not-exist.html"),e()})});</script>
+  
+
+</body></html>

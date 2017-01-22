@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["/index.html","53459144c54426487ce4d4b7e40db514"],["/manifest.json","cf2cfde99cfdd3bd0d9497f66c05c61d"],["/src/article-detail.html","cf00a4d8267d769efde32f20a2433d81"],["/src/article-headline.html","2b0190de93f45896549c6083ca2752a9"],["/src/lazy-resources.html","60e89d1bc2312d19bd8b44c29e02237e"],["/src/phanui-app.html","c958c487b520a167934919115330e5f8"]];
+var precacheConfig = [["/index.html","53459144c54426487ce4d4b7e40db514"],["/manifest.json","cf2cfde99cfdd3bd0d9497f66c05c61d"],["/src/article-detail.html","cf00a4d8267d769efde32f20a2433d81"],["/src/article-headline.html","2b0190de93f45896549c6083ca2752a9"],["/src/lazy-resources.html","60e89d1bc2312d19bd8b44c29e02237e"],["/src/phanui-app.html","45ab1995105aa76bd5615a6f26047bad"]];
 var cacheName = 'sw-precache-v2--' + (self.registration ? self.registration.scope : '');
 
 

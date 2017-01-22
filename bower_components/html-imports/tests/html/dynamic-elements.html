@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head>
+  <title>HTML Imports Dynamic Elements</title>
+  <script src="../../src/html-imports.js"></script>
+  <script src="../../../web-component-tester/browser.js"></script>
+  <link rel="import" href="imports/dynamic-elements-import.html">
+</head>
+<body>
+  <div id="asyncStyled">red?</div>
+
+  <script>test("async elements added",function(e){document.addEventListener("asyncElementsAdded",function(){requestAnimationFrame(function(){chai.assert.isTrue(window.asyncScript,"async added script ran");var n=getComputedStyle(document.querySelector("#asyncStyled"));chai.assert.equal(n.backgroundColor,"rgb(255, 0, 0)","async added style applied"),e()})})});</script>
+
+
+</body></html>
