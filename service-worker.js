@@ -252,8 +252,8 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/\/bower_components\/.*\/.*/, toolbox.cacheFirst, {"cache":{"maxAgeSeconds":864000,"maxEntries":400,"name":"elements-cache"}});
-toolbox.router.get(/\/src\/.*\.html/, toolbox.cacheFirst, {"cache":{"maxAgeSeconds":86400,"maxEntries":50,"name":"src-elements-cache"}});
+toolbox.router.get(/\/bower_components\/.*/, toolbox.networkFirst, {"cache":{"maxAgeSeconds":864000,"maxEntries":400,"name":"elements-cache"}});
+toolbox.router.get(/\/src\/.*/, toolbox.networkFirst, {"cache":{"maxAgeSeconds":86400,"maxEntries":50,"name":"src-elements-cache"}});
 toolbox.router.get(/\/data\/images\/.*/, toolbox.cacheFirst, {"cache":{"maxAgeSeconds":864000,"maxEntries":200,"name":"items-cache"}});
 toolbox.router.get(/lh3\.googleusercontent\.com\/.*/, toolbox.cacheFirst, {"cache":{"maxEntries":200,"name":"images-cache"}});
 toolbox.router.get(/\/data\/.*json/, toolbox.fastest, {"cache":{"maxAgeSeconds":864000,"maxEntries":100,"name":"data-cache"}});
