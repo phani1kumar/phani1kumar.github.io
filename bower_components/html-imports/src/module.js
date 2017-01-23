@@ -1,1 +1,0 @@
-!function(n){var i=[],o=function(n){i.push(n)},u=function(){i.forEach(function(i){i(n)})};n.addModule=o,n.initializeModules=u}(window.HTMLImports);
