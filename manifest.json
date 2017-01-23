@@ -2,16 +2,16 @@
   "short_name": "PhAnui",
   "name": "PhAnui Software Solutions Pvt Ltd",
   "icons": [{
-      "src": "https://lh3.googleusercontent.com/_P0eXWcCxDhIgYx2jPnvVVAFDS5hEMt6U5ALPbEwwwTPqCEpjHryGZG1HNM6RgTcaB8m9mZ-vCEhR8NwXgNi1UHIKA=s128",
-      "sizes": "128x128",
+      "src": "images/phanui/logo/phanui_logo_128x58.png",
+      "sizes": "128x58",
       "type": "image/png"
     }, {
-      "src": "https://lh3.googleusercontent.com/_P0eXWcCxDhIgYx2jPnvVVAFDS5hEMt6U5ALPbEwwwTPqCEpjHryGZG1HNM6RgTcaB8m9mZ-vCEhR8NwXgNi1UHIKA=s192",
-      "sizes": "192x192",
+      "src": "images/phanui/logo/phanui_logo_192x86.png",
+      "sizes": "192x86",
       "type": "image/png"
     },{
-      "src": "https://lh3.googleusercontent.com/_P0eXWcCxDhIgYx2jPnvVVAFDS5hEMt6U5ALPbEwwwTPqCEpjHryGZG1HNM6RgTcaB8m9mZ-vCEhR8NwXgNi1UHIKA=s384",
-      "sizes": "384x384",
+      "src": "images/phanui/logo/phanui_logo_384x172.png",
+      "sizes": "384x172",
       "type": "image/png"
     }],
   "start_url": "index.html",
