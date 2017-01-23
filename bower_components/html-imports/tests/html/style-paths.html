@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <title>HTMLImports Path Tests</title>
+  <script src="../../src/html-imports.js"></script>
+  <script src="../../../web-component-tester/browser.js"></script>
+  <link rel="import" href="imports/style-paths-import.html">
+</head>
+<body>
+  <div class="red">red</div>
+  <div class="image" style="height: 20px"></div>
+  <div style="font-family: 'Source Code Pro'">Source Code Pro</div>
+  <script>test("style-paths",function(e){setTimeout(function(){var t=document.querySelector("[rel=import]"),r=(t.import,document.querySelector(".red"));chai.assert.equal(getComputedStyle(r).backgroundColor,"rgb(255, 0, 0)","style in @import applied");var o=document.querySelector(".image"),a=document.createElement("a");if(a.href="imports/google.png",chai.assert.match(getComputedStyle(o).backgroundImage,new RegExp(a.href),"url in style applied"),!HTMLImports.useNative){var l=document.querySelectorAll("style"),s=[].filter.call(l,function(e){return e.textContent.indexOf("Source+Code+Pro")>-1})[0];assert.ok(s),chai.assert.ok(s.sheet),chai.assert.equal(s.sheet.cssRules[2].href,"http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,600,800|Source+Code+Pro","@import url() form rule has proper url")}e()})});</script>
+
+
+</body></html>
