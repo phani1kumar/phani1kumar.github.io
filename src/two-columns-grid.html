@@ -7,7 +7,48 @@
 
   <template>
 
-    <style>:host{@apply --layout-horizontal;@apply --layout-wrap;max-width:calc(2 * var(--grid-column-width) + 4 * var(--grid-gutter));margin:var(--grid-gutter) auto;--grid-item-height:calc(3 * var(--grid-column-width) / 4);}:host > ::slotted(*){@apply --layout-flex-none;width:var(--grid-column-width);height:var(--grid-item-height);margin:var(--grid-gutter);box-sizing:border-box;}:host > ::slotted(*:nth-of-type(3n-2)){width:calc(100% - 2 * var(--grid-gutter));height:calc(var(--grid-column-width)  + 2 * var(--grid-gutter));}:host([narrow-layout]){max-width:none;margin:0 var(--grid-gutter);}:host([narrow-layout]) > ::slotted(*){width:100% !important;height:var(--grid-item-height) !important;margin:var(--grid-gutter) 0;}iron-media-query{display:none;}</style>
+    <style>
+
+      :host {
+        @apply --layout-horizontal;
+        @apply --layout-wrap;
+        max-width: calc(2 * var(--grid-column-width) + 4 * var(--grid-gutter));
+        margin: var(--grid-gutter) auto;
+        /* item has width/height ratio 4:3 */
+        --grid-item-height: calc(3 * var(--grid-column-width) / 4);
+      }
+
+      :host > ::slotted(*) {
+        @apply --layout-flex-none;
+        width: var(--grid-column-width);
+        height: var(--grid-item-height);
+        margin: var(--grid-gutter);
+        box-sizing: border-box;
+      }
+
+      /* https://github.com/webcomponents/shadycss/issues/15 */
+      :host > ::slotted(*:nth-of-type(3n-2)) {
+        width: calc(100% - 2 * var(--grid-gutter));
+        /* large item has widht/height ratio 2:1 */
+        height: calc(var(--grid-column-width)  + 2 * var(--grid-gutter));
+      }
+
+      :host([narrow-layout]) {
+        max-width: none;
+        margin: 0 var(--grid-gutter);
+      }
+
+      :host([narrow-layout]) > ::slotted(*) {
+        width: 100% !important;
+        height: var(--grid-item-height) !important;
+        margin: var(--grid-gutter) 0;
+      }
+
+      iron-media-query {
+        display: none;
+      }
+
+    </style>
 
     <slot></slot>
 

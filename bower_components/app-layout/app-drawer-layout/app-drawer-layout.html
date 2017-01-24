@@ -6,7 +6,33 @@
 
 </head><body><dom-module id="app-drawer-layout">
   <template>
-    <style>:host{display:block;position:relative;z-index:0;}:host ::slotted([slot=drawer]){z-index:1;}:host([fullbleed]){@apply --layout-fit;}#contentContainer{position:relative;z-index:0;height:100%;transition:var(--app-drawer-layout-content-transition, none);}</style>
+    <style>
+      :host {
+        display: block;
+        /**
+         * Force app-drawer-layout to have its own stacking context so that its parent can
+         * control the stacking of it relative to other elements.
+         */
+        position: relative;
+        z-index: 0;
+      }
+
+      :host ::slotted([slot=drawer]) {
+        z-index: 1;
+      }
+
+      :host([fullbleed]) {
+        @apply --layout-fit;
+      }
+
+      #contentContainer {
+        /* Create a stacking context here so that all children appear below the header. */
+        position: relative;
+        z-index: 0;
+        height: 100%;
+        transition: var(--app-drawer-layout-content-transition, none);
+      }
+    </style>
 
     <slot id="drawerSlot" name="drawer"></slot>
 

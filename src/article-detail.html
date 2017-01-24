@@ -1,7 +1,4 @@
-<!--
-@license
-Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
---><html><head><meta charset="UTF-8"><link rel="import" href="phanui-app.html"></head><body><dom-module id="article-detail">
+<html><head><meta charset="UTF-8"><link rel="import" href="phanui-app.html"></head><body><dom-module id="article-detail">
 
   <template>
 
@@ -95,65 +92,6 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
     </template>
   </template>
 
-  <script>
-
-    Polymer({
-
-      is: 'article-detail',
-
-      properties: {
-
-        article: Object,
-        articleContent: {
-            type: String,
-            notify: true,
-            value: ""
-        },
-        articleUrl: String,       
-        failure: {
-            type: Boolean,
-            notify: true,
-            readOnly: true
-          } 
-        },
-        observers: [
-          '_fetchHtmlData(articleUrl)'
-        ],
-        setUrl:function(dataUrl){
-          this.set('articleUrl',dataUrl);
-          this.notifyPath('articleUrl');
-          return false;
-        },
-
-        _fetchHtmlData:function(dataUrl) {
-          this._setFailure(false);
-          this._getResource({
-            url: dataUrl,
-            onLoad: function(e) {
-              this.set('articleContent', e.target.responseText);
-            },
-            onError: function(e) {
-              this._setFailure(true);
-            }
-          }, 1);
-        },
-        _getResource:function(rq, attempts) {
-          var xhr = new XMLHttpRequest();
-          xhr.addEventListener('load', rq.onLoad.bind(this));
-          xhr.addEventListener('error', function(e) {
-            // Flaky connections might fail fetching resources
-            if (attempts > 1) {
-              this.debounce('_getResource', this._getResource.bind(this, rq, attempts - 1), 200);
-            } else {
-              rq.onError.call(this, e);
-            }
-          }.bind(this));
-
-          xhr.open('GET', rq.url);
-          xhr.send();
-        }
-    });
-
-  </script>
+  <script>Polymer({is:"article-detail",properties:{article:Object,articleContent:{type:String,notify:!0,value:""},articleUrl:String,failure:{type:Boolean,notify:!0,readOnly:!0}},observers:["_fetchHtmlData(articleUrl)"],setUrl:function(t){return this.set("articleUrl",t),this.notifyPath("articleUrl"),!1},_fetchHtmlData:function(t){this._setFailure(!1),this._getResource({url:t,onLoad:function(t){this.set("articleContent",t.target.responseText)},onError:function(t){this._setFailure(!0)}},1)},_getResource:function(t,e){var r=new XMLHttpRequest;r.addEventListener("load",t.onLoad.bind(this)),r.addEventListener("error",function(r){e>1?this.debounce("_getResource",this._getResource.bind(this,t,e-1),200):t.onError.call(this,r)}.bind(this)),r.open("GET",t.url),r.send()}});</script>
 
 </dom-module></body></html>
