@@ -1,5 +1,0 @@
-<html><head><link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../iron-resizable-behavior/iron-resizable-behavior.html">
-
-<script>Polymer.AppLayoutBehavior=[Polymer.IronResizableBehavior,{listeners:{"app-reset-layout":"_appResetLayoutHandler","iron-resize":"resetLayout"},attached:function(){this.fire("app-reset-layout")},_appResetLayoutHandler:function(t){Polymer.dom(t).path[0]!==this&&(this.resetLayout(),t.stopPropagation())},_updateLayoutStates:function(){console.error("unimplemented")},resetLayout:function(){this._debounceRaf(this._updateLayoutStates),this._notifyDescendantResize()},_notifyLayoutChanged:function(){var t=this;requestAnimationFrame(function(){t.fire("app-reset-layout")})},_debounceRaf:function(t){var e=this;this._raf&&window.cancelAnimationFrame(this._raf),this._raf=window.requestAnimationFrame(function(){e._raf=null,t.call(e)})},_notifyDescendantResize:function(){this.isAttached&&this._interestedResizables.forEach(function(t){this.resizerShouldNotify(t)&&this._notifyDescendant(t)},this)}}];</script>
-</head><body></body></html>
