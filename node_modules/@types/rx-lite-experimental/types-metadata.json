@@ -1,0 +1,24 @@
+{
+    "authors": "Igor Oleinikov <https://github.com/Igorbek>",
+    "libraryDependencies": [
+        "rx-lite"
+    ],
+    "moduleDependencies": [],
+    "libraryMajorVersion": 4,
+    "libraryMinorVersion": 0,
+    "typeScriptVersion": "2.0",
+    "libraryName": "rx-lite-experimental",
+    "typingsPackageName": "rx-lite-experimental",
+    "projectName": "https://github.com/Reactive-Extensions/RxJS",
+    "sourceRepoURL": "https://www.github.com/DefinitelyTyped/DefinitelyTyped",
+    "sourceBranch": "master",
+    "globals": [],
+    "declaredModules": [
+        "rx-lite-experimental"
+    ],
+    "files": [
+        "index.d.ts"
+    ],
+    "hasPackageJson": false,
+    "contentHash": "4bc25aa05ce211f5a43f4d1b9c539b7b233a11b8cf81b1dbb4d2cba9a74fc104"
+}

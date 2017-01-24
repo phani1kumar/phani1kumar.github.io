@@ -1,0 +1,24 @@
+{
+    "authors": "Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>",
+    "libraryDependencies": [
+        "rx-lite"
+    ],
+    "moduleDependencies": [],
+    "libraryMajorVersion": 4,
+    "libraryMinorVersion": 0,
+    "typeScriptVersion": "2.0",
+    "libraryName": "rx-lite-time",
+    "typingsPackageName": "rx-lite-time",
+    "projectName": "https://github.com/Reactive-Extensions/RxJS",
+    "sourceRepoURL": "https://www.github.com/DefinitelyTyped/DefinitelyTyped",
+    "sourceBranch": "master",
+    "globals": [],
+    "declaredModules": [
+        "rx-lite-time"
+    ],
+    "files": [
+        "index.d.ts"
+    ],
+    "hasPackageJson": false,
+    "contentHash": "95e2fd3563d59450c65022f655391b67ee2acb6dfb8650d8d7f4d044f6d57c6a"
+}

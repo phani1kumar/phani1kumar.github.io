@@ -1,0 +1,25 @@
+{
+    "authors": "PROGRE <https://github.com/progre/>, Damian Connolly <https://github.com/divillysausages/>, Florent Poujol <https://github.com/florentpoujol/>",
+    "definitionFilename": "index.d.ts",
+    "libraryDependencies": [
+        "node"
+    ],
+    "moduleDependencies": [],
+    "libraryMajorVersion": "1",
+    "libraryMinorVersion": "4",
+    "libraryName": "socket.io 1.4.4",
+    "typingsPackageName": "socket.io",
+    "projectName": "http://socket.io/",
+    "sourceRepoURL": "https://www.github.com/DefinitelyTyped/DefinitelyTyped",
+    "sourceBranch": "types-2.0",
+    "kind": "Mixed",
+    "globals": [],
+    "declaredModules": [
+        "socket.io"
+    ],
+    "files": [
+        "index.d.ts"
+    ],
+    "hasPackageJson": false,
+    "contentHash": "bdb2ac8263e2f49728b9ee984721ced1ba70017c8dd9275e0f6cefaa403996a7"
+}

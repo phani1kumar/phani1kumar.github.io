@@ -1,0 +1,26 @@
+{
+    "authors": "Igor Oleinikov <https://github.com/Igorbek>",
+    "libraryDependencies": [
+        "rx-lite-virtualtime"
+    ],
+    "moduleDependencies": [],
+    "libraryMajorVersion": 4,
+    "libraryMinorVersion": 0,
+    "typeScriptVersion": "2.0",
+    "libraryName": "rx-lite-testing",
+    "typingsPackageName": "rx-lite-testing",
+    "projectName": "https://github.com/Reactive-Extensions/RxJS",
+    "sourceRepoURL": "https://www.github.com/DefinitelyTyped/DefinitelyTyped",
+    "sourceBranch": "master",
+    "globals": [
+        "Rx"
+    ],
+    "declaredModules": [
+        "rx-lite-testing"
+    ],
+    "files": [
+        "index.d.ts"
+    ],
+    "hasPackageJson": false,
+    "contentHash": "e1fbcc9c66ed5619b4256c34a86aeebe3098c165721abe9162ce2732e6065f48"
+}

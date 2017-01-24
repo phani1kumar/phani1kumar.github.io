@@ -1,0 +1,21 @@
+[
+  {
+    "name":"social",
+    "title":"Contact Us",
+    "isSocial": true,
+    "items":[
+      {
+        "id": "facebook",
+        "title":"Facebook",
+        "altText":"Follow us on Facebook",
+        "link":"https://www.facebook.com/phanui.in"
+      },
+      {
+        "id": "contact-us",
+        "title": "Mail",
+        "altText":"Mail us",
+        "link":"mailto:phanui@gmail.com?Subject=Hello PhAnui"
+      }
+    ]
+  }
+]

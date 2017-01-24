@@ -4,16 +4,27 @@
   "fragments": [
     "src/article-detail.html",
     "src/article-headline.html",
-    "lazy-resources.html"
+    "src/lazy-resources.html"
   ],
-  "sourceGlobs": [
+  "sources": [
    "src/**/*",
    "data/**/*",
    "images/**/*",
    "bower.json"
   ],
-  "includeDependencies": [
-    "manifest.json",    
-    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  "extraDependencies": [
+    "manifest.json",
+    "bower_components/URL/url.js",
+    "bower_components/custom-elements/custom-elements.min.js",
+    "bower_components/es6-promise/dist/es6-promise.auto.min.js",
+    "bower_components/html-imports/**/*",
+    "bower_components/shadycss/shadycss.min.js",
+    "bower_components/shadydom/shadydom.min.js",
+    "bower_components/template/template.js",
+    "bower_components/webcomponents-platform/webcomponents-platform.js",
+    "bower_components/webcomponentsjs/src/post-polyfill.js",
+    "bower_components/webcomponentsjs/src/pre-polyfill.js",
+    "bower_components/webcomponentsjs/src/unresolved.js",        
+    "bower_components/webcomponentsjs/webcomponents-lite.js"
   ]
 }

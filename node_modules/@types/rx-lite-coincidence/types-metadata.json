@@ -1,0 +1,24 @@
+{
+    "authors": "Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>",
+    "libraryDependencies": [
+        "rx-lite"
+    ],
+    "moduleDependencies": [],
+    "libraryMajorVersion": 4,
+    "libraryMinorVersion": 0,
+    "typeScriptVersion": "2.0",
+    "libraryName": "rx-lite-coincidence",
+    "typingsPackageName": "rx-lite-coincidence",
+    "projectName": "https://github.com/Reactive-Extensions/RxJS",
+    "sourceRepoURL": "https://www.github.com/DefinitelyTyped/DefinitelyTyped",
+    "sourceBranch": "master",
+    "globals": [],
+    "declaredModules": [
+        "rx-lite-coincidence"
+    ],
+    "files": [
+        "index.d.ts"
+    ],
+    "hasPackageJson": false,
+    "contentHash": "b1c647ad30060f67d17c59b1c4cd6ad25904aa83f4065f9d606e00dfdcebafeb"
+}

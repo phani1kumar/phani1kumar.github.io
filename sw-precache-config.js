@@ -3,39 +3,61 @@ module.exports = {
   staticFileGlobs: [
     '/index.html',
     '/manifest.json',
-    '/bower_components/webcomponentsjs/webcomponents-lite.min.js',
-    '/images/*'
+    '/src/*.html',
+    '/bower_components/polymer/**',
+    '/bower_components/app-route/**',
+    '/bower_components/iron-image/**',
+    '/bower_components/iron-pages/**',
+    '/bower_components/iron-selector/**',
+    '/bower_components/paper-styles/**',
+    '/bower_components/app-layout/**',    
+    '/bower_components/webcomponentsjs/webcomponents-lite.js',
+    '/images/**'
   ],
   navigateFallback: '/index.html',
   navigateFallbackWhitelist: [/^(?!.*\.html$|\/data\/).*/],
   runtimeCaching: [
     {
-      urlPattern: /\/data\/images\/.*/,
-      handler: 'cacheFirst',
+      urlPattern: /\/bower_components\/.*/,
+      handler: 'networkFirst',
       options: {
         cache: {
-          maxEntries: 200,
-          name: 'items-cache'
+          maxAgeSeconds:60*60*24*10,
+          maxEntries: 400,
+          name: 'elements-cache'
         }
       }
     },
     {
-      urlPattern: /lh3\.googleusercontent\.com\/.*/,
+      urlPattern: /\/src\/.*/,
+      handler: 'networkFirst',
+      options: {
+        cache: {
+          maxAgeSeconds:60*60*24,
+          maxEntries: 50,
+          name: 'src-elements-cache'
+        }
+      }
+    },    
+    {
+      urlPattern: /\/data\/.*/,
       handler: 'cacheFirst',
       options: {
         cache: {
+          maxAgeSeconds:60*60*24*10,
+          maxEntries: 200,
+          name: 'data-cache'
+        }
+      }
+    },
+    {
+      urlPattern: /\/images\/.*/,
+      handler: 'cacheFirst',
+      options: {
+        cache: {
+          maxAgeSeconds:60*60*24*10,
           maxEntries: 200,
           name: 'images-cache'
-        }
-      }
-    },
-    {
-      urlPattern: /\/data\/.*json/,
-      handler: 'fastest',
-      options: {
-        cache: {
-          maxEntries: 100,
-          name: 'data-cache'
         }
       }
     }

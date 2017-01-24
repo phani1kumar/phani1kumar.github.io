@@ -1,0 +1,24 @@
+{
+    "authors": "Igor Oleinikov <https://github.com/Igorbek>",
+    "libraryDependencies": [
+        "rx-lite"
+    ],
+    "moduleDependencies": [],
+    "libraryMajorVersion": 4,
+    "libraryMinorVersion": 0,
+    "typeScriptVersion": "2.0",
+    "libraryName": "rx-lite-joinpatterns",
+    "typingsPackageName": "rx-lite-joinpatterns",
+    "projectName": "https://github.com/Reactive-Extensions/RxJS",
+    "sourceRepoURL": "https://www.github.com/DefinitelyTyped/DefinitelyTyped",
+    "sourceBranch": "master",
+    "globals": [],
+    "declaredModules": [
+        "rx-lite-joinpatterns"
+    ],
+    "files": [
+        "index.d.ts"
+    ],
+    "hasPackageJson": false,
+    "contentHash": "98d1165280964bc7b3f8dea0c2e905e6324bfb705ceba2cb1f4b2578d726434b"
+}
