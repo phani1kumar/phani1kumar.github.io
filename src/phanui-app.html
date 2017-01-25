@@ -8985,6 +8985,7 @@
 
       
       <app-drawer id="drawer" slot="drawer">
+        <template is="dom-if" if="[[loadComplete]]">
         <app-header-layout has-scrolling-region="">
 
           <app-header fixed="" slot="header">
@@ -9014,6 +9015,7 @@
           </iron-selector>
 
         </app-header-layout>
+        </template>
       </app-drawer>
 
       
