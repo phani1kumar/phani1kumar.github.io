@@ -22,9 +22,7 @@
     "paper-icon-button": "PolymerElements/paper-icon-button#2.0-preview",
     "paper-styles": "PolymerElements/paper-styles#2.0-preview",
     "polymer": "polymer/polymer#2.0-preview",
-    "s-html": "phani1kumar/s-html#~v0.1.4",
-    "shadydom": "webcomponents/shadydom",
-    "shadycss": "webcomponents/shadycss"
+    "s-html": "phani1kumar/s-html#~v0.1.4"
   },
   "variants": {
     "1.x": {
