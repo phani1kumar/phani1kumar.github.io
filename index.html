@@ -5,6 +5,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
 
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
@@ -30,16 +31,19 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
   </style>
 
 </head>
+
 <body unresolved>
 
   <dom-bind>
     <template is="dom-bind">
-      <phanui-app articles="[[articles]]" footer-links="[[footerLinks]]"></blog-app>
+      <phanui-app articles="[[articles]]" footer-links="[[footerLinks]]">
+        </blog-app>
     </template>
   </dom-bind>
   <script>
     window.performance && performance.mark && performance.mark('index.html');
-     Polymer = {lazyRegister: true, dom: 'shadow'};
+    Polymer = { lazyRegister: true, dom: 'shadow' };
+ 
     /*
     (function() {
       if ('registerElement' in document
@@ -53,7 +57,8 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         document.body.appendChild(e);
       }
     })();*/
-    
+
   </script>
 </body>
+
 </html>
