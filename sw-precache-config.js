@@ -4,15 +4,8 @@ module.exports = {
     '/index.html',
     '/manifest.json',
     '/src/*.html',
-    '/bower_components/polymer/**',
-    '/bower_components/app-route/**',
-    '/bower_components/iron-image/**',
-    '/bower_components/iron-pages/**',
-    '/bower_components/iron-selector/**',
-    '/bower_components/paper-styles/**',
-    '/bower_components/app-layout/**',    
     '/bower_components/webcomponentsjs/webcomponents-lite.js',
-    '/images/**'
+    '/images/phanui/**'
   ],
   navigateFallback: '/index.html',
   navigateFallbackWhitelist: [/^(?!.*\.html$|\/data\/).*/],

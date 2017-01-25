@@ -161,32 +161,32 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
       }
     </style>
 
-    <!-- setup routes -->
-    <app-location route="{{route}}" use-hash-as-path></app-location>
-    <app-route route="{{route}}" pattern="/:category" data="{{categoryData}}" tail="{{subRoute}}"></app-route>
-    <app-route route="{{subRoute}}" pattern="/:page" data="{{pageData}}" tail="{{subsubRoute}}"></app-route>
-    <app-route route="{{subsubRoute}}" pattern="/:id" data="{{idData}}"></app-route>
+<!-- setup routes -->
+<app-location route="{{route}}" use-hash-as-path></app-location>
+<app-route route="{{route}}" pattern="/:category" data="{{categoryData}}" tail="{{subRoute}}"></app-route>
+<app-route route="{{subRoute}}" pattern="/:page" data="{{pageData}}" tail="{{subsubRoute}}"></app-route>
+<app-route route="{{subsubRoute}}" pattern="/:id" data="{{idData}}"></app-route>
 
-    <!-- manages page's scroll position -->
-    <app-scrollpos-control selected="[[categoryData.category]]/[[pageData.page]]" reset="[[_equal(pageData.page, 'detail')]]"></app-scrollpos-control>
+<!-- manages page's scroll position -->
+<app-scrollpos-control selected="[[categoryData.category]]/[[pageData.page]]" reset="[[_equal(pageData.page, 'detail')]]"></app-scrollpos-control>
 
-    <app-drawer-layout drawer-width="288px" responsive-width="1280px" narrow="{{narrow}}">
+<app-drawer-layout drawer-width="288px" responsive-width="1280px" narrow="{{narrow}}">
 
-      <!-- nav panel -->
-      <app-drawer id="drawer" slot="drawer">
-        <app-header-layout has-scrolling-region>
+  <!-- nav panel -->
+  <app-drawer id="drawer" slot="drawer">
+    <template is="dom-if" if="[[loadComplete]]">
+      <app-header-layout has-scrolling-region>
 
-          <app-header fixed slot="header">
+        <app-header fixed slot="header">
 
-            <!-- header toolbar -->
-            <app-toolbar class="title-toolbar nav-title-toolbar">
-              <iron-img src="../images/phanui/logo/phanui_logo_180x81.png"
-                alt="PhAnui Software Solutions Pvt. Ltd."></iron-img>
-            </app-toolbar>
-          </app-header>
+          <!-- header toolbar -->
+          <app-toolbar class="title-toolbar nav-title-toolbar">
+          </app-toolbar>
+        </app-header>
 
-          <!-- nav menu -->
-          <iron-selector class="nav-menu" selected="[[categoryData.category]]" attr-for-selected="name" on-iron-activate="_drawerSelected">
+        <!-- nav menu -->
+        <iron-selector class="nav-menu" selected="[[categoryData.category]]" attr-for-selected="name" on-iron-activate="_drawerSelected">
+          <template is="dom-if" if="[[articlesLoaded]]">
             <template is="dom-repeat" items="{{articles}}">
               <template is="dom-if" if="[[!item.hasSubmenu]]">
                 <a name="[[item.name]]" href="#/[[item.name]]/list">{{item.title}}</a>
@@ -201,280 +201,283 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
                 </paper-listbox>
               </template>
             </template>
-          </iron-selector>
-
-        </app-header-layout>
-      </app-drawer>
-
-      <!-- main panel -->
-      <app-header-layout>
-
-        <app-header fixed effects="waterfall" class="main-header" slot="header">
-
-          <!-- header toolbar -->
-          <app-toolbar class="title-toolbar main-title-toolbar">
-            <!-- menu button -->
-            <paper-icon-button drawer-toggle icon="app:menu" hidden$="[[_shouldHideMenuButton(categoryData.category, pageData.page, narrow)]]"></paper-icon-button>
-
-            <!-- back button -->
-            <template is="dom-if" if="[[!inPolicyDetailPage(categoryData.category, pageData.page)]]">
-              <a href="#/[[categoryData.category]]/list" hidden$="[[_equal(pageData.page, 'list')]]">
-                <paper-icon-button icon="app:arrow-back"></paper-icon-button>
-              </a>
-            </template>
-            <template is="dom-if" if="[[inPolicyDetailPage(categoryData.category, pageData.page)]]">
-              <a href="#/phanui/list" hidden$="[[_equal(pageData.page, 'list')]]">
-                <paper-icon-button icon="app:arrow-back"></paper-icon-button>
-              </a>
-            </template>
-            <img src="../images/phanui/logo/phanui_logo_180x81.png"
-              alt="PhAnui Software Solutions Pvt. Ltd."></img>
-            <div main-title hidden$="[[narrow]]">PhAnui Software Solutions Pvt Ltd</div>
-          </app-toolbar>
-        </app-header>
-
-        <!-- list/detail pages -->
-        <iron-pages selected="[[pageData.page]]" attr-for-selected="name" fallback-selection="404">
-
-          <!-- list page -->
-          <iron-pages name="list" selected="[[categoryData.category]]" attr-for-selected="name">
-
-            <template is="dom-repeat" items="[[articles]]" as="category">
-              <section class="category-page" name="[[category.name]]">
-
-                <!-- 2-columns grid -->
-                <two-columns-grid column-width="396" gutter="4">
-                  <template is="dom-repeat" items="[[category.items]]" as="article">
-                    <article-headline href="#/[[category.name]]/detail/[[article.id]]" article="[[article]]"></article-headline>
-                  </template>
-                </two-columns-grid>
-
-              </section>
-            </template>
-
-          </iron-pages>
-
-          <!-- detail page -->
-          <article-detail name="detail" article="[[article]]"></article-detail>
-          <phanui-404-warning name="404"></phanui-404-warning>
-
-        </iron-pages>
-        <div style="height:100px">
-        </div>
-      </app-header-layout>
-      <footer>
-        <p><a href="/copyright/">© 2015-2016 |<strong> PhAnui Software Solutions Pvt Ltd</strong> | All rights reserved</a></p>
-        <p>
-          <template is="dom-repeat" items="[[footerLinks]]" as="contact" filter="isSocial">
-            <template is="dom-repeat" items="[[contact.items]]" as="item">
-              <a href$="[[item.link]]" target="_blank" alt$="[[item.altText]]">[[item.title]]</a>
-            </template>
           </template>
-        </p>
-      </footer>
-    </app-drawer-layout>
+        </iron-selector>
 
-  </template>
+      </app-header-layout>
+    </template>
+  </app-drawer>
 
-  <script>
+  <!-- main panel -->
+  <app-header-layout>
 
-    Polymer({
+    <app-header fixed effects="waterfall" class="main-header" slot="header">
 
-      is: 'phanui-app',
+      <!-- header toolbar -->
+      <app-toolbar class="title-toolbar main-title-toolbar">
+        <!-- menu button -->
+        <paper-icon-button drawer-toggle icon="app:menu" hidden$="[[_shouldHideMenuButton(categoryData.category, pageData.page, narrow)]]"></paper-icon-button>
 
-      properties: {
+        <!-- back button -->
+        <template is="dom-if" if="[[!inPolicyDetailPage(categoryData.category, pageData.page)]]">
+          <a href="#/[[categoryData.category]]/list" hidden$="[[_equal(pageData.page, 'list')]]">
+            <paper-icon-button icon="app:arrow-back"></paper-icon-button>
+          </a>
+        </template>
+        <template is="dom-if" if="[[inPolicyDetailPage(categoryData.category, pageData.page)]]">
+          <a href="#/phanui/list" hidden$="[[_equal(pageData.page, 'list')]]">
+            <paper-icon-button icon="app:arrow-back"></paper-icon-button>
+          </a>
+        </template>
+        <iron-image src="../images/phanui/logo/phanui_logo_180x81.png" placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAOCAMAAAB5Au6AAAAAA3NCSVQICAjb4U/gAAAA6lBMVEVjWWPevoz/263e297/8+eMhoS9ur2cmpzn5+fOy87/+++9hoT3396UkpTn09b38/etpqX/29bn4+f3x8aloqX/5+fW09a1rq3Gw8b3+/+clpz39///473e396UjpScnpz/4+eUlpT39/e1trX/9++Ujoy9vr3v6+/Oz87ejoz/497319b/58b/6+/e197///+EfXv/37Xn297v7++Uioylmpzv5+f/+/f/396ckpTn19b/8/etqq3v4+etoqX/6+fW19a1srXOx8b/+///573n396lnpyclpT/9/e9trXGvr3Wz87nkpT/587IpEOhAAAA/ElEQVQYlYWRfU/CMBDGUSaUOMKsjm6Ri7rNDZnxEUsG6qKl2O0f/P5fxxpwS3yJT9K7XPPLc3dtB/+o8+Mmojsqr0ht/gA4Ae7wogDfITtgieQLIITb0+NAEmS3AZL55O29AWBuQgR6bJk9kMyBxboUQO96xKPHOK6YWMd12jhMMLJFBbzAY6wEJOtLQDcOt8voXngCAy1rQiGqHiHw+tN2hsPz+DPX04Eekm1dZ561WTRA6Bzw/YBQdHRWMpKeqMftmlFHMqvMniKTOuWa0qDLNu07GEVGPdlgkzKGuLFRyQbIVpd+7rgnfu7mz7OHWf7q+r7jr379i2/6AD0qSoNK06qiAAAAAElFTkSuQmCC"
+          alt="PhAnui Software Solutions Pvt. Ltd." sizing="contain" preload style="width:180px;height:81px;"></iron-image>
+<div main-title hidden$="[[narrow]]">PhAnui Software Solutions Pvt Ltd</div>
+</app-toolbar>
+</app-header>
 
-        /**
-         * Articles data.
-         */
-        articles: {
-          type: Object,
-          notify: true
-        },
-        footerLinks: {
-          type: Object,
-          value: [{
-                    "name":"social",
-                    "title":"Contact Us",
-                    "isSocial": true,
-                    "items":[
-                      {
-                        "id": "facebook",
-                        "title":"Facebook",
-                        "altText":"Follow us on Facebook",
-                        "link":"https://www.facebook.com/phanui.in"
-                      },
-                      {
-                        "id": "contact-us",
-                        "title": "Mail",
-                        "altText":"Mail us",
-                        "link":"mailto:phanui@gmail.com?Subject=Hello PhAnui"
-                      }
-                    ]
-                  }]
-        },
-        route: Object,
-        subRoute: Object,
-        subsubRoute: Object,
-        categoryData: Object,
-        pageData: {
-          type: Object
-        },
-        idData: Object,
-        hidePolicyMenu: {
-          type: Boolean,
-          value: true
-        },       
-            failure: {
-                type: Boolean,
-                notify: true,
-                readOnly: true
-            }    
-      },
+<!-- list/detail pages -->
+<iron-pages selected="[[pageData.page]]" attr-for-selected="name" fallback-selection="404">
 
-      observers: [
-        '_updateArticle(articles, categoryData.category, idData.id)',
-        '_pageChanged(categoryData, pageData)'
-      ],
-      created: function() {
-        window.performance && performance.mark && performance.mark('phanui-app.created');
-        // Custom elements polyfill safe way to indicate an element has been upgraded.
-        this.removeAttribute('unresolved');
-        this._fetchMenuData();
-      },
-      ready: function() {
-        // listen for online/offline
-        Polymer.RenderStatus.afterNextRender(this, function() {
-          this.listen(window, 'online', '_notifyNetworkStatus');
-          this.listen(window, 'offline', '_notifyNetworkStatus');
-        });
-      },
-      attached: function() {
-        this.async(function() {
-          if (!this.route.path) {
-            this.set('route.path', '/phanui/list');
-          }
-        });
-          //this._ensureLazyLoaded();
-      },
+  <!-- list page -->
+  <iron-pages name="list" selected="[[categoryData.category]]" attr-for-selected="name">
 
-      _equal: function(value1, value2) {
-        return value1 === value2;
-      },
-      _pageChanged: function(catData, pgData) {
-        console.log('_pageChanged Called'+catData+'/'+pgData);
-        if(!catData || !pgData)
-          return;
-        if (pgData.page && catData.category) {
-        console.log('_pageChanged Called'+catData.category+'/'+pgData.page);
-            this.debounce('lazy-resources',this._pageLoaded,10);
-        }
-      },
-      _pageLoaded: function() {
-        // load lazy resources after render and set `loadComplete` when done.
-        if (!this.loadComplete) {
-          console.log('lazy resources load called');
-          Polymer.RenderStatus.afterNextRender(this, function() {
-            this.importHref(this.resolveUrl('lazy-resources.html'), function() {
-              // Register service worker if supported.
-              if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/service-worker.js');
-              }
-              this.loadComplete = true;
-              this._notifyNetworkStatus();
-            });
-          });
-        }
-      },
-      _notifyNetworkStatus: function() {
-        var oldOffline = this.offline;
-        this.offline =  !navigator.onLine;
-        // Show the snackbar if the user is offline when starting a new session
-        // or if the network status changed.
-        if (this.offline || (!this.offline && oldOffline === true)) {
-          if (!this._networkSnackbar) {
-            this._networkSnackbar = document.createElement('phanui-snackbar');
-            Polymer.dom(this.root).appendChild(this._networkSnackbar);
-          }
-          Polymer.dom(this._networkSnackbar).innerHTML = this.offline ?
-              'You are offline' : 'You are online';
-          this._networkSnackbar.open();
-        }
-      },
-      _updateArticle: function(articles, category, id) {
-        if (!articles) {
-          return;
-        }
-        for (var i=0, cat; cat=articles[i]; i++) {
-          if (cat.name === category) {
-            for (var j=0, article; article=cat.items[j]; j++) {
-              if (article.id === id) {
-                this.article = article;
-                return;
-              }
-            }
-          }
-        }
-      },
-      isSocial: function(item){
-        if(item)
-          return item.isSocial; 
-      },
-      isPolicy: function(item){
-        return item.isPolicy;
-      },
-      togglePolicyMenu: function(e){
-        this.hidePolicyMenu = !this.hidePolicyMenu;
-        e.stopPropagation();
-        return false; 
-      },
-      _drawerSelected: function() {
-        if(this.hidePolicyMenu && this.narrow) return;
-        if (!this.$.drawer.persistent) this.$.drawer.close();
-      },
+    <template is="dom-repeat" items="[[articles]]" as="category">
+      <section class="category-page" name="[[category.name]]">
 
-      _shouldHideMenuButton: function(category, page, narrow) {
-        if(category === 'policies' && page === 'detail' && narrow) return false;
-        return page === 'detail' || !narrow;
-      },
-      inPolicyDetailPage: function(category, page){
-        //Test
-        return page === 'detail' && category === 'policies';
-      },
+        <!-- 2-columns grid -->
+        <two-columns-grid column-width="396" gutter="4">
+          <template is="dom-repeat" items="[[category.items]]" as="article">
+            <article-headline href="#/[[category.name]]/detail/[[article.id]]" article="[[article]]"></article-headline>
+          </template>
+        </two-columns-grid>
 
-        _fetchMenuData:function() {
-          console.log('loading articles data');
-          this._setFailure(false);
-          this._getResource({
-            url: '../data/articles.json',
-            onLoad: function(e) {
-              this.set('articles', JSON.parse(e.target.responseText));
+      </section>
+    </template>
+
+  </iron-pages>
+
+  <!-- detail page -->
+  <article-detail name="detail" article="[[article]]"></article-detail>
+  <phanui-404-warning name="404"></phanui-404-warning>
+
+</iron-pages>
+<div style="height:100px">
+</div>
+</app-header-layout>
+<footer>
+  <p><a href="/copyright/">© 2015-2016 |<strong> PhAnui Software Solutions Pvt Ltd</strong> | All rights reserved</a></p>
+  <p>
+    <template is="dom-repeat" items="[[footerLinks]]" as="contact" filter="isSocial">
+      <template is="dom-repeat" items="[[contact.items]]" as="item">
+        <a href$="[[item.link]]" target="_blank" alt$="[[item.altText]]">[[item.title]]</a>
+      </template>
+    </template>
+  </p>
+</footer>
+</app-drawer-layout>
+
+</template>
+
+<script>
+
+  Polymer({
+
+    is: 'phanui-app',
+
+    properties: {
+
+      /**
+       * Articles data.
+       */
+      articles: {
+        type: Object,
+        notify: true
+      },
+      footerLinks: {
+        type: Object,
+        value: [{
+          "name": "social",
+          "title": "Contact Us",
+          "isSocial": true,
+          "items": [
+            {
+              "id": "facebook",
+              "title": "Facebook",
+              "altText": "Follow us on Facebook",
+              "link": "https://www.facebook.com/phanui.in"
             },
-            onError: function(e) {
-              this._setFailure(true);
+            {
+              "id": "contact-us",
+              "title": "Mail",
+              "altText": "Mail us",
+              "link": "mailto:phanui@gmail.com?Subject=Hello PhAnui"
             }
-          }, 1);
-        },
-        _setFailure:function(flag){
-          this.set('failure',flag);
-        },
-        _getResource:function(rq, attempts) {
-          var xhr = new XMLHttpRequest();
-          xhr.addEventListener('load', rq.onLoad.bind(this));
-          xhr.addEventListener('error', function(e) {
-            // Flaky connections might fail fetching resources
-            if (attempts > 1) {
-              this.debounce('_getResource', this._getResource.bind(this, rq, attempts - 1), 200);
-            } else {
-              rq.onError.call(this, e);
-            }
-          }.bind(this));
+          ]
+        }]
+      },
+      route: Object,
+      subRoute: Object,
+      subsubRoute: Object,
+      categoryData: Object,
+      pageData: {
+        type: Object
+      },
+      idData: Object,
+      hidePolicyMenu: {
+        type: Boolean,
+        value: true
+      },
+      failure: {
+        type: Boolean,
+        notify: true,
+        readOnly: true
+      }
+    },
 
-          xhr.open('GET', rq.url);
-          xhr.send();
+    observers: [
+      '_updateArticle(articles, categoryData.category, idData.id)',
+      '_pageChanged(categoryData, pageData)'
+    ],
+    created: function () {
+      window.performance && performance.mark && performance.mark('phanui-app.created');
+      // Custom elements polyfill safe way to indicate an element has been upgraded.
+      this.removeAttribute('unresolved');
+      this._fetchMenuData();
+    },
+    ready: function () {
+      // listen for online/offline
+      Polymer.RenderStatus.afterNextRender(this, function () {
+        this.listen(window, 'online', '_notifyNetworkStatus');
+        this.listen(window, 'offline', '_notifyNetworkStatus');
+      });
+    },
+    attached: function () {
+      this.async(function () {
+        if (!this.route.path) {
+          this.set('route.path', '/phanui/list');
         }
+      });
+      //this._ensureLazyLoaded();
+    },
 
-    });
-  </script>
+    _equal: function (value1, value2) {
+      return value1 === value2;
+    },
+    _pageChanged: function (catData, pgData) {
+      console.log('_pageChanged Called' + catData + '/' + pgData);
+      if (!catData || !pgData)
+        return;
+      if (pgData.page && catData.category) {
+        console.log('_pageChanged Called' + catData.category + '/' + pgData.page);
+        this.debounce('lazy-resources', this._pageLoaded, 10);
+      }
+    },
+    _pageLoaded: function () {
+      // load lazy resources after render and set `loadComplete` when done.
+      if (!this.loadComplete) {
+        console.log('lazy resources load called');
+        Polymer.RenderStatus.afterNextRender(this, function () {
+          this.importHref(this.resolveUrl('lazy-resources.html'), function () {
+            // Register service worker if supported.
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.register('/service-worker.js');
+            }
+            this.loadComplete = true;
+            this._notifyNetworkStatus();
+          });
+        });
+      }
+    },
+    _notifyNetworkStatus: function () {
+      var oldOffline = this.offline;
+      this.offline = !navigator.onLine;
+      // Show the snackbar if the user is offline when starting a new session
+      // or if the network status changed.
+      if (this.offline || (!this.offline && oldOffline === true)) {
+        if (!this._networkSnackbar) {
+          this._networkSnackbar = document.createElement('phanui-snackbar');
+          Polymer.dom(this.root).appendChild(this._networkSnackbar);
+        }
+        Polymer.dom(this._networkSnackbar).innerHTML = this.offline ?
+          'You are offline' : 'You are online';
+        this._networkSnackbar.open();
+      }
+    },
+    _updateArticle: function (articles, category, id) {
+      if (!articles) {
+        return;
+      }
+      for (var i = 0, cat; cat = articles[i]; i++) {
+        if (cat.name === category) {
+          for (var j = 0, article; article = cat.items[j]; j++) {
+            if (article.id === id) {
+              this.article = article;
+              return;
+            }
+          }
+        }
+      }
+    },
+    isSocial: function (item) {
+      if (item)
+        return item.isSocial;
+    },
+    isPolicy: function (item) {
+      return item.isPolicy;
+    },
+    togglePolicyMenu: function (e) {
+      this.hidePolicyMenu = !this.hidePolicyMenu;
+      e.stopPropagation();
+      return false;
+    },
+    _drawerSelected: function () {
+      if (this.hidePolicyMenu && this.narrow) return;
+      if (!this.$.drawer.persistent) this.$.drawer.close();
+    },
+
+    _shouldHideMenuButton: function (category, page, narrow) {
+      if (category === 'policies' && page === 'detail' && narrow) return false;
+      return page === 'detail' || !narrow;
+    },
+    inPolicyDetailPage: function (category, page) {
+      //Test
+      return page === 'detail' && category === 'policies';
+    },
+
+    _fetchMenuData: function () {
+      console.log('loading articles data');
+      this._setFailure(false);
+      this._getResource({
+        url: '../data/articles.json',
+        onLoad: function (e) {
+          this.set('articles', JSON.parse(e.target.responseText));
+          this.articlesLoaded = true;
+        },
+        onError: function (e) {
+          this._setFailure(true);
+        }
+      }, 1);
+    },
+    _setFailure: function (flag) {
+      this.set('failure', flag);
+    },
+    _getResource: function (rq, attempts) {
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', rq.onLoad.bind(this));
+      xhr.addEventListener('error', function (e) {
+        // Flaky connections might fail fetching resources
+        if (attempts > 1) {
+          this.debounce('_getResource', this._getResource.bind(this, rq, attempts - 1), 200);
+        } else {
+          rq.onError.call(this, e);
+        }
+      }.bind(this));
+
+      xhr.open('GET', rq.url);
+      xhr.send();
+    }
+
+  });
+</script>
 
 </dom-module>
