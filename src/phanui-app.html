@@ -8972,32 +8972,32 @@
       }
     </style>
 
-    
-    <app-location route="{{route}}" use-hash-as-path=""></app-location>
-    <app-route route="{{route}}" pattern="/:category" data="{{categoryData}}" tail="{{subRoute}}"></app-route>
-    <app-route route="{{subRoute}}" pattern="/:page" data="{{pageData}}" tail="{{subsubRoute}}"></app-route>
-    <app-route route="{{subsubRoute}}" pattern="/:id" data="{{idData}}"></app-route>
 
-    
-    <app-scrollpos-control selected="[[categoryData.category]]/[[pageData.page]]" reset="[[_equal(pageData.page, 'detail')]]"></app-scrollpos-control>
+<app-location route="{{route}}" use-hash-as-path=""></app-location>
+<app-route route="{{route}}" pattern="/:category" data="{{categoryData}}" tail="{{subRoute}}"></app-route>
+<app-route route="{{subRoute}}" pattern="/:page" data="{{pageData}}" tail="{{subsubRoute}}"></app-route>
+<app-route route="{{subsubRoute}}" pattern="/:id" data="{{idData}}"></app-route>
 
-    <app-drawer-layout drawer-width="288px" responsive-width="1280px" narrow="{{narrow}}">
 
-      
-      <app-drawer id="drawer" slot="drawer">
-        <template is="dom-if" if="[[loadComplete]]">
-        <app-header-layout has-scrolling-region="">
+<app-scrollpos-control selected="[[categoryData.category]]/[[pageData.page]]" reset="[[_equal(pageData.page, 'detail')]]"></app-scrollpos-control>
 
-          <app-header fixed="" slot="header">
+<app-drawer-layout drawer-width="288px" responsive-width="1280px" narrow="{{narrow}}">
 
-            
-            <app-toolbar class="title-toolbar nav-title-toolbar">
-              <iron-img src="../images/phanui/logo/phanui_logo_180x81.png" alt="PhAnui Software Solutions Pvt. Ltd."></iron-img>
-            </app-toolbar>
-          </app-header>
+  
+  <app-drawer id="drawer" slot="drawer">
+    <template is="dom-if" if="[[loadComplete]]">
+      <app-header-layout has-scrolling-region="">
+
+        <app-header fixed="" slot="header">
 
           
-          <iron-selector class="nav-menu" selected="[[categoryData.category]]" attr-for-selected="name" on-iron-activate="_drawerSelected">
+          <app-toolbar class="title-toolbar nav-title-toolbar">
+          </app-toolbar>
+        </app-header>
+
+        
+        <iron-selector class="nav-menu" selected="[[categoryData.category]]" attr-for-selected="name" on-iron-activate="_drawerSelected">
+          <template is="dom-if" if="[[articlesLoaded]]">
             <template is="dom-repeat" items="{{articles}}">
               <template is="dom-if" if="[[!item.hasSubmenu]]">
                 <a name="[[item.name]]" href="#/[[item.name]]/list">{{item.title}}</a>
@@ -9012,81 +9012,82 @@
                 </paper-listbox>
               </template>
             </template>
-          </iron-selector>
+          </template>
+        </iron-selector>
 
-        </app-header-layout>
-        </template>
-      </app-drawer>
+      </app-header-layout>
+    </template>
+  </app-drawer>
+
+  
+  <app-header-layout>
+
+    <app-header fixed="" effects="waterfall" class="main-header" slot="header">
 
       
-      <app-header-layout>
-
-        <app-header fixed="" effects="waterfall" class="main-header" slot="header">
-
-          
-          <app-toolbar class="title-toolbar main-title-toolbar">
-            
-            <paper-icon-button drawer-toggle="" icon="app:menu" hidden$="[[_shouldHideMenuButton(categoryData.category, pageData.page, narrow)]]"></paper-icon-button>
-
-            
-            <template is="dom-if" if="[[!inPolicyDetailPage(categoryData.category, pageData.page)]]">
-              <a href="#/[[categoryData.category]]/list" hidden$="[[_equal(pageData.page, 'list')]]">
-                <paper-icon-button icon="app:arrow-back"></paper-icon-button>
-              </a>
-            </template>
-            <template is="dom-if" if="[[inPolicyDetailPage(categoryData.category, pageData.page)]]">
-              <a href="#/phanui/list" hidden$="[[_equal(pageData.page, 'list')]]">
-                <paper-icon-button icon="app:arrow-back"></paper-icon-button>
-              </a>
-            </template>
-            <img src="../images/phanui/logo/phanui_logo_180x81.png" alt="PhAnui Software Solutions Pvt. Ltd.">
-            <div main-title="" hidden$="[[narrow]]">PhAnui Software Solutions Pvt Ltd</div>
-          </app-toolbar>
-        </app-header>
+      <app-toolbar class="title-toolbar main-title-toolbar">
+        
+        <paper-icon-button drawer-toggle="" icon="app:menu" hidden$="[[_shouldHideMenuButton(categoryData.category, pageData.page, narrow)]]"></paper-icon-button>
 
         
-        <iron-pages selected="[[pageData.page]]" attr-for-selected="name" fallback-selection="404">
+        <template is="dom-if" if="[[!inPolicyDetailPage(categoryData.category, pageData.page)]]">
+          <a href="#/[[categoryData.category]]/list" hidden$="[[_equal(pageData.page, 'list')]]">
+            <paper-icon-button icon="app:arrow-back"></paper-icon-button>
+          </a>
+        </template>
+        <template is="dom-if" if="[[inPolicyDetailPage(categoryData.category, pageData.page)]]">
+          <a href="#/phanui/list" hidden$="[[_equal(pageData.page, 'list')]]">
+            <paper-icon-button icon="app:arrow-back"></paper-icon-button>
+          </a>
+        </template>
+        <iron-image src="../images/phanui/logo/phanui_logo_180x81.png" placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAOCAMAAAB5Au6AAAAAA3NCSVQICAjb4U/gAAAA6lBMVEVjWWPevoz/263e297/8+eMhoS9ur2cmpzn5+fOy87/+++9hoT3396UkpTn09b38/etpqX/29bn4+f3x8aloqX/5+fW09a1rq3Gw8b3+/+clpz39///473e396UjpScnpz/4+eUlpT39/e1trX/9++Ujoy9vr3v6+/Oz87ejoz/497319b/58b/6+/e197///+EfXv/37Xn297v7++Uioylmpzv5+f/+/f/396ckpTn19b/8/etqq3v4+etoqX/6+fW19a1srXOx8b/+///573n396lnpyclpT/9/e9trXGvr3Wz87nkpT/587IpEOhAAAA/ElEQVQYlYWRfU/CMBDGUSaUOMKsjm6Ri7rNDZnxEUsG6qKl2O0f/P5fxxpwS3yJT9K7XPPLc3dtB/+o8+Mmojsqr0ht/gA4Ae7wogDfITtgieQLIITb0+NAEmS3AZL55O29AWBuQgR6bJk9kMyBxboUQO96xKPHOK6YWMd12jhMMLJFBbzAY6wEJOtLQDcOt8voXngCAy1rQiGqHiHw+tN2hsPz+DPX04Eekm1dZ561WTRA6Bzw/YBQdHRWMpKeqMftmlFHMqvMniKTOuWa0qDLNu07GEVGPdlgkzKGuLFRyQbIVpd+7rgnfu7mz7OHWf7q+r7jr379i2/6AD0qSoNK06qiAAAAAElFTkSuQmCC" alt="PhAnui Software Solutions Pvt. Ltd." sizing="contain" preload="" style="width:180px;height:81px"></iron-image>
+<div main-title="" hidden$="[[narrow]]">PhAnui Software Solutions Pvt Ltd</div>
+</app-toolbar>
+</app-header>
 
-          
-          <iron-pages name="list" selected="[[categoryData.category]]" attr-for-selected="name">
 
-            <template is="dom-repeat" items="[[articles]]" as="category">
-              <section class="category-page" name="[[category.name]]">
+<iron-pages selected="[[pageData.page]]" attr-for-selected="name" fallback-selection="404">
 
-                
-                <two-columns-grid column-width="396" gutter="4">
-                  <template is="dom-repeat" items="[[category.items]]" as="article">
-                    <article-headline href="#/[[category.name]]/detail/[[article.id]]" article="[[article]]"></article-headline>
-                  </template>
-                </two-columns-grid>
+  
+  <iron-pages name="list" selected="[[categoryData.category]]" attr-for-selected="name">
 
-              </section>
-            </template>
+    <template is="dom-repeat" items="[[articles]]" as="category">
+      <section class="category-page" name="[[category.name]]">
 
-          </iron-pages>
-
-          
-          <article-detail name="detail" article="[[article]]"></article-detail>
-          <phanui-404-warning name="404"></phanui-404-warning>
-
-        </iron-pages>
-        <div style="height:100px">
-        </div>
-      </app-header-layout>
-      <footer>
-        <p><a href="/copyright/">© 2015-2016 |<strong> PhAnui Software Solutions Pvt Ltd</strong> | All rights reserved</a></p>
-        <p>
-          <template is="dom-repeat" items="[[footerLinks]]" as="contact" filter="isSocial">
-            <template is="dom-repeat" items="[[contact.items]]" as="item">
-              <a href$="[[item.link]]" target="_blank" alt$="[[item.altText]]">[[item.title]]</a>
-            </template>
+        
+        <two-columns-grid column-width="396" gutter="4">
+          <template is="dom-repeat" items="[[category.items]]" as="article">
+            <article-headline href="#/[[category.name]]/detail/[[article.id]]" article="[[article]]"></article-headline>
           </template>
-        </p>
-      </footer>
-    </app-drawer-layout>
+        </two-columns-grid>
 
-  </template>
+      </section>
+    </template>
 
-  <script>Polymer({is:"phanui-app",properties:{articles:{type:Object,notify:!0},footerLinks:{type:Object,value:[{name:"social",title:"Contact Us",isSocial:!0,items:[{id:"facebook",title:"Facebook",altText:"Follow us on Facebook",link:"https://www.facebook.com/phanui.in"},{id:"contact-us",title:"Mail",altText:"Mail us",link:"mailto:phanui@gmail.com?Subject=Hello PhAnui"}]}]},route:Object,subRoute:Object,subsubRoute:Object,categoryData:Object,pageData:{type:Object},idData:Object,hidePolicyMenu:{type:Boolean,value:!0},failure:{type:Boolean,notify:!0,readOnly:!0}},observers:["_updateArticle(articles, categoryData.category, idData.id)","_pageChanged(categoryData, pageData)"],created:function(){window.performance&&performance.mark&&performance.mark("phanui-app.created"),this.removeAttribute("unresolved"),this._fetchMenuData()},ready:function(){Polymer.RenderStatus.afterNextRender(this,function(){this.listen(window,"online","_notifyNetworkStatus"),this.listen(window,"offline","_notifyNetworkStatus")})},attached:function(){this.async(function(){this.route.path||this.set("route.path","/phanui/list")})},_equal:function(e,t){return e===t},_pageChanged:function(e,t){console.log("_pageChanged Called"+e+"/"+t),e&&t&&t.page&&e.category&&(console.log("_pageChanged Called"+e.category+"/"+t.page),this.debounce("lazy-resources",this._pageLoaded,10))},_pageLoaded:function(){this.loadComplete||(console.log("lazy resources load called"),Polymer.RenderStatus.afterNextRender(this,function(){this.importHref(this.resolveUrl("lazy-resources.html"),function(){"serviceWorker"in navigator&&navigator.serviceWorker.register("/service-worker.js"),this.loadComplete=!0,this._notifyNetworkStatus()})}))},_notifyNetworkStatus:function(){var e=this.offline;this.offline=!navigator.onLine,(this.offline||!this.offline&&e===!0)&&(this._networkSnackbar||(this._networkSnackbar=document.createElement("phanui-snackbar"),Polymer.dom(this.root).appendChild(this._networkSnackbar)),Polymer.dom(this._networkSnackbar).innerHTML=this.offline?"You are offline":"You are online",this._networkSnackbar.open())},_updateArticle:function(e,t,i){if(e)for(var o,n=0;o=e[n];n++)if(o.name===t)for(var a,r=0;a=o.items[r];r++)if(a.id===i)return void(this.article=a)},isSocial:function(e){if(e)return e.isSocial},isPolicy:function(e){return e.isPolicy},togglePolicyMenu:function(e){return this.hidePolicyMenu=!this.hidePolicyMenu,e.stopPropagation(),!1},_drawerSelected:function(){this.hidePolicyMenu&&this.narrow||this.$.drawer.persistent||this.$.drawer.close()},_shouldHideMenuButton:function(e,t,i){return("policies"!==e||"detail"!==t||!i)&&("detail"===t||!i)},inPolicyDetailPage:function(e,t){return"detail"===t&&"policies"===e},_fetchMenuData:function(){console.log("loading articles data"),this._setFailure(!1),this._getResource({url:"../data/articles.json",onLoad:function(e){this.set("articles",JSON.parse(e.target.responseText))},onError:function(e){this._setFailure(!0)}},1)},_setFailure:function(e){this.set("failure",e)},_getResource:function(e,t){var i=new XMLHttpRequest;i.addEventListener("load",e.onLoad.bind(this)),i.addEventListener("error",function(i){t>1?this.debounce("_getResource",this._getResource.bind(this,e,t-1),200):e.onError.call(this,i)}.bind(this)),i.open("GET",e.url),i.send()}});</script>
+  </iron-pages>
+
+  
+  <article-detail name="detail" article="[[article]]"></article-detail>
+  <phanui-404-warning name="404"></phanui-404-warning>
+
+</iron-pages>
+<div style="height:100px">
+</div>
+</app-header-layout>
+<footer>
+  <p><a href="/copyright/">© 2015-2016 |<strong> PhAnui Software Solutions Pvt Ltd</strong> | All rights reserved</a></p>
+  <p>
+    <template is="dom-repeat" items="[[footerLinks]]" as="contact" filter="isSocial">
+      <template is="dom-repeat" items="[[contact.items]]" as="item">
+        <a href$="[[item.link]]" target="_blank" alt$="[[item.altText]]">[[item.title]]</a>
+      </template>
+    </template>
+  </p>
+</footer>
+</app-drawer-layout>
+
+</template>
+
+<script>Polymer({is:"phanui-app",properties:{articles:{type:Object,notify:!0},footerLinks:{type:Object,value:[{name:"social",title:"Contact Us",isSocial:!0,items:[{id:"facebook",title:"Facebook",altText:"Follow us on Facebook",link:"https://www.facebook.com/phanui.in"},{id:"contact-us",title:"Mail",altText:"Mail us",link:"mailto:phanui@gmail.com?Subject=Hello PhAnui"}]}]},route:Object,subRoute:Object,subsubRoute:Object,categoryData:Object,pageData:{type:Object},idData:Object,hidePolicyMenu:{type:Boolean,value:!0},failure:{type:Boolean,notify:!0,readOnly:!0}},observers:["_updateArticle(articles, categoryData.category, idData.id)","_pageChanged(categoryData, pageData)"],created:function(){window.performance&&performance.mark&&performance.mark("phanui-app.created"),this.removeAttribute("unresolved"),this._fetchMenuData()},ready:function(){Polymer.RenderStatus.afterNextRender(this,function(){this.listen(window,"online","_notifyNetworkStatus"),this.listen(window,"offline","_notifyNetworkStatus")})},attached:function(){this.async(function(){this.route.path||this.set("route.path","/phanui/list")})},_equal:function(e,t){return e===t},_pageChanged:function(e,t){console.log("_pageChanged Called"+e+"/"+t),e&&t&&t.page&&e.category&&(console.log("_pageChanged Called"+e.category+"/"+t.page),this.debounce("lazy-resources",this._pageLoaded,10))},_pageLoaded:function(){this.loadComplete||(console.log("lazy resources load called"),Polymer.RenderStatus.afterNextRender(this,function(){this.importHref(this.resolveUrl("lazy-resources.html"),function(){"serviceWorker"in navigator&&navigator.serviceWorker.register("/service-worker.js"),this.loadComplete=!0,this._notifyNetworkStatus()})}))},_notifyNetworkStatus:function(){var e=this.offline;this.offline=!navigator.onLine,(this.offline||!this.offline&&e===!0)&&(this._networkSnackbar||(this._networkSnackbar=document.createElement("phanui-snackbar"),Polymer.dom(this.root).appendChild(this._networkSnackbar)),Polymer.dom(this._networkSnackbar).innerHTML=this.offline?"You are offline":"You are online",this._networkSnackbar.open())},_updateArticle:function(e,t,i){if(e)for(var o,n=0;o=e[n];n++)if(o.name===t)for(var a,r=0;a=o.items[r];r++)if(a.id===i)return void(this.article=a)},isSocial:function(e){if(e)return e.isSocial},isPolicy:function(e){return e.isPolicy},togglePolicyMenu:function(e){return this.hidePolicyMenu=!this.hidePolicyMenu,e.stopPropagation(),!1},_drawerSelected:function(){this.hidePolicyMenu&&this.narrow||this.$.drawer.persistent||this.$.drawer.close()},_shouldHideMenuButton:function(e,t,i){return("policies"!==e||"detail"!==t||!i)&&("detail"===t||!i)},inPolicyDetailPage:function(e,t){return"detail"===t&&"policies"===e},_fetchMenuData:function(){console.log("loading articles data"),this._setFailure(!1),this._getResource({url:"../data/articles.json",onLoad:function(e){this.set("articles",JSON.parse(e.target.responseText)),this.articlesLoaded=!0},onError:function(e){this._setFailure(!0)}},1)},_setFailure:function(e){this.set("failure",e)},_getResource:function(e,t){var i=new XMLHttpRequest;i.addEventListener("load",e.onLoad.bind(this)),i.addEventListener("error",function(i){t>1?this.debounce("_getResource",this._getResource.bind(this,e,t-1),200):e.onError.call(this,i)}.bind(this)),i.open("GET",e.url),i.send()}});</script>
 
 </dom-module></body></html>
