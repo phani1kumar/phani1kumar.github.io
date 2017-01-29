@@ -129,7 +129,11 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
           this.notifyPath('articleUrl');
           return false;
         },
-
+        ready: function () {
+          if(typeof ga == 'function' && this.article){
+            ga('send','pageview','Article: '+this.article.title);
+          }
+        },
         _fetchHtmlData:function(dataUrl) {
           this._setFailure(false);
           this._getResource({

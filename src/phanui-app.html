@@ -160,6 +160,7 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
         text-decoration: underline;
       }
     </style>
+    <phanui-analytics key="UA-65965613-2"></phanui-analytics>
 
 <!-- setup routes -->
 <app-location route="{{route}}" use-hash-as-path></app-location>
@@ -364,9 +365,13 @@ Copyright (c) 2015-2017 PhAnui Software Solutions Pvt Ltd. All rights reserved.
       return value1 === value2;
     },
     _pageChanged: function (catData, pgData) {
-      console.log('_pageChanged Called' + catData + '/' + pgData);
       if (!catData || !pgData)
         return;
+      console.log('_pageChanged Called' + catData.category + '/' + pgData.page+" >>"+this.location);
+      if(typeof ga == 'function'){
+        var idVal = (this.idData === undefined)? '' : this.idData.id;
+        ga('send','pageview','/'+catData.category+'/'+pgData.page+'/'+ idVal);
+      }
       if (pgData.page && catData.category) {
         console.log('_pageChanged Called' + catData.category + '/' + pgData.page);
         this.debounce('lazy-resources', this._pageLoaded, 10);
