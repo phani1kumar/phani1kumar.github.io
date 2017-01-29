@@ -758,7 +758,7 @@
 
   <script>Polymer({is:"paper-icon-button",hostAttributes:{role:"button",tabindex:"0"},behaviors:[Polymer.PaperInkyFocusBehavior],properties:{src:{type:String},icon:{type:String},alt:{type:String,observer:"_altChanged"}},_altChanged:function(t,e){var r=this.getAttribute("aria-label");r&&e!=r||this.setAttribute("aria-label",t)}});</script>
 </dom-module>
-<dom-module id="article-detail" assetpath="./">
+<script>document.registerElement("phanui-analytics",{prototype:{__proto__:HTMLElement.prototype,attachedCallback:function(){!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName("body")[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create",this.getAttribute("key"),"auto"),ga("send","pageview")}}});</script><dom-module id="article-detail" assetpath="./">
 
   <template>
 
